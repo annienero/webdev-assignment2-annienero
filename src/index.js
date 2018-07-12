@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CourseEditor from './containers/CourseEditor'
+
 ReactDOM.render(
- <h1>Hello, world!</h1>,
- document.getElementById('root')
+    <CourseEditor/>,
+    document.getElementById('root')
 );
