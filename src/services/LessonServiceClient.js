@@ -5,7 +5,7 @@ function LessonServiceClient() {
     this.findLessonById = findLessonById
     this.findAllLessonsForModule = findAllLessonsForModule
     this.updateLesson = updateLesson
-    
+
     function createLesson(cid, mid, lessonObjStr) {
         return fetch('/api/course/' + cid + '/module/' + mid + '/lesson', {
             method: 'post',
@@ -17,38 +17,43 @@ function LessonServiceClient() {
     }
 
     function deleteLesson(id) {
-        return fetch('/api/lesson/' + id), {
+        return fetch('/api/lesson/' + id, {
             method: 'delete'
-        }
+        })
     }
 
-    function findAllLessons() {
-        return fetch('/api/lesson'), {
-            method: 'get'
-        }.then(function(response) {
-            response.json()
+    function findAllLessons(callback) {
+        return $.ajax({
+            url: '/api/lesson',
+            success: callback
         })
     }
 
     function findLessonById(id) {
-        return fetch('/api/lesson' + id), {
+        return fetch('/api/lesson' + id, {
             method: 'get'
-        }.then(function(response) {
+        }).then(function(response) {
             response.json()
         })
     }
 
     function findAllLessonsForModule(cid, mid) {
-        return fetch('/api/course/' + cid + '/module/' + mid + '/lesson'), {
+        return fetch('/api/course/' + cid + '/module/' + mid + '/lesson', {
             method: 'get'
-        }.then(function(response) {
+        }).then(function(response) {
             response.json()
         })
     }
 
-    function updateLesson(id) {
-        return fetch('/api/lesson' + id), {
-            method: 'get'
-        }
+    function updateLesson(id, lessonObjStr) {
+        return fetch('/api/lesson' + id, {
+            method: 'put',
+            body: lessonObjStr,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(response) {
+            return response.json();
+        })
     }
 }
