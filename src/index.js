@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CourseEditor from './containers/CourseEditor'
+import CourseEditor from './containers/CourseManager'
 
 ReactDOM.render(
-    <CourseEditor/>,
+    <CourseManager/>,
     document.getElementById('root')
 );
