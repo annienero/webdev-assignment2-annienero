@@ -17,7 +17,7 @@ class CourseList extends Component {
      
     courseRows() {
         var rows = this.state.courses.map(function(course) {
-           return <CourseRow course={course}/>
+            return <CourseRow course={course} key={course.id}/>
         });
         return rows
     }
@@ -25,15 +25,22 @@ class CourseList extends Component {
     render() {
         return (
             <div>
-                <h1>Course List</h1>
-                {/* <div>
-                    <table>
-                        <thead><tr><th>Title</th></tr></thead>
-                        <tbody>
-                            {this.courseRows()}
-                        </tbody>
-                    </table>
-                </div> */}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.courseRows()}
+                        <tr>
+                            <th><input id="titleFld" placeholder="cs4550"/></th>
+                            <th><button>Add</button></th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }  

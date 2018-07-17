@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import '../node_modules/font-awesome/css/font-awesome.min.css';
-import CourseRow from './components/CourseRow'
+import React, {Component} from 'react'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
+import CourseList from './CourseList'
 
 export default class CourseManager extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <h1>Course Manager</h1>
                 <div className="card-deck">
-                    <CourseRow/>
-                    <CourseRow/>
+                    <h1>Course Manager</h1>
                 </div>
+                <div><CourseList/></div>
             </div>
         )
     }  
 }
+    
