@@ -38,7 +38,7 @@ function ModuleServiceClient() {
     }
 
     function findAllModulesForCourse(cid) {
-        return fetch('/api/course/' + cid + '/module/', {
+        return fetch('/api/course/' + cid + '/module', {
             method: 'get'
         }).then(function(response) {
             response.json()

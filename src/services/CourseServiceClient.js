@@ -25,10 +25,10 @@ export default class CourseServiceClient {
     }
 
     deleteCourse(id) {
-        return fetch(COURSE_API_URL + id, {
+        return fetch(COURSE_API_URL + '/' + id, {
             method: 'delete'
         }).then(function (response) {
-            return response.json();
+            return response
         })  
     }
 

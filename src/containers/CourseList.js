@@ -17,13 +17,14 @@ class CourseList extends Component {
         this.findAllCourses()
     }
 
-
     selectCourse(courseId) {
         this.setState({courseId: courseId});
     }
      
     deleteCourse(courseId) { 
-        this.courseService.deleteCourse(courseId);
+        this.courseService.deleteCourse(courseId).then(() => 
+        { this.findAllCourses(); }
+    )
     }
 
     findAllCourses() {
@@ -34,9 +35,9 @@ class CourseList extends Component {
     }
      
     courseRows() {
-        var rows = this.state.courses.map(function(course) {
-            return <CourseRow course={course} key={course.id}/>
-        })
+        var rows = this.state.courses.map(course =>
+            <CourseRow course={course} key={course.id} delete={this.deleteCourse}/>
+        )
         return rows
     }
 

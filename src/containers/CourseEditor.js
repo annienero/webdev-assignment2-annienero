@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class CourseEditor extends Component {
     render() {
         return (
-            <h1>Course Editor</h1>
+            <h3>Course Editor</h3>
         )
     }  
 }
