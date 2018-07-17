@@ -11,7 +11,11 @@ export default class CourseRow extends Component {
                 <td>{this.props.course.modified}</td>
                 <td><button onClick={() => { 
                     this.props.delete(this.props.course.id)
-                }}>Delete</button></td>
+                    }}>Delete</button>
+                </td>
+                <td><Link to={`/course/${this.props.course.id}/edit`}>
+                    <button>View Course</button>
+                </Link></td>
             </tr>)
     }
 }
