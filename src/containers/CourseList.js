@@ -3,6 +3,8 @@ import CourseRow from '../components/CourseRow'
 import CourseServiceClient from '../services/CourseServiceClient'
 
 class CourseList extends Component {
+
+    //TODO updating courses
     constructor() {
         super();
         this.courseService = CourseServiceClient.instance;
