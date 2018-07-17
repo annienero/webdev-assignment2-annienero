@@ -7,12 +7,10 @@ import CourseList from './CourseList'
 export default class CourseManager extends Component {
     render() {
         return (
-            <div className="container-fluid">
-                <div className="card-deck">
-                    <h1>Course Manager</h1>
-                </div>
+            <div>
+                <h1>Course Manager</h1>
                 <div><CourseList/></div>
-            </div>
+            </div>                  
         )
     }  
 }

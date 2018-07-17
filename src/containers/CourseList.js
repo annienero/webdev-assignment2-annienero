@@ -6,21 +6,37 @@ class CourseList extends Component {
     constructor() {
         super();
         this.courseService = CourseServiceClient.instance;
-        this.state = {courses: []};
+        this.state = {courses: [], courseId: ''};
+        this.selectCourse = this.selectCourse.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
         this.createCourse = this.createCourse.bind(this);
+        this.deleteCourse = this.deleteCourse.bind(this);
     }
+
     componentDidMount() {
+        this.findAllCourses()
+    }
+
+
+    selectCourse(courseId) {
+        this.setState({courseId: courseId});
+    }
+     
+    deleteCourse(courseId) { 
+        this.courseService.deleteCourse(courseId);
+    }
+
+    findAllCourses() {
         this.courseService.findAllCourses()
-            .then(courses => {
-                this.setState({courses: courses});
+        .then(courses => {
+            this.setState({courses: courses, courseId: this.state.courseId});
         });
     }
      
     courseRows() {
         var rows = this.state.courses.map(function(course) {
             return <CourseRow course={course} key={course.id}/>
-        });
+        })
         return rows
     }
 
@@ -31,7 +47,9 @@ class CourseList extends Component {
     }
 
     createCourse() { 
-        this.courseService.createCourse(JSON.stringify(this.state.course))
+        this.courseService.createCourse(JSON.stringify(this.state.course)).then(() => 
+            { this.findAllCourses(); }
+        )
     }
 
     render() {
@@ -40,6 +58,10 @@ class CourseList extends Component {
                 <table>
                     <thead>
                         <tr>
+                            <th><input className="form-control" onChange={this.titleChanged} placeholder="cs4550"/></th>
+                            <th><button onClick={this.createCourse}>Add</button></th>
+                        </tr>
+                        <tr>
                             <th>Title</th>
                             <th>Created</th>
                             <th>Modified</th>
@@ -47,10 +69,6 @@ class CourseList extends Component {
                     </thead>
                     <tbody>
                         {this.courseRows()}
-                        <tr>
-                            <th><input onChange={this.titleChanged} placeholder="cs4550"/></th>
-                            <th><button onClick={this.createCourse}>Add</button></th>
-                        </tr>
                     </tbody>
                 </table>
             </div>

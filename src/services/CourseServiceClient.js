@@ -13,20 +13,23 @@ export default class CourseServiceClient {
    }
 
     createCourse(courseObjStr) {
-        console.log(courseObjStr)
         return fetch(COURSE_API_URL, {
             method: 'post',
             body: courseObjStr,
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then(function (response) {
+            return response.json();
         })
     }
 
     deleteCourse(id) {
-        return fetch('/api/course/' + id, {
+        return fetch(COURSE_API_URL + id, {
             method: 'delete'
-        })
+        }).then(function (response) {
+            return response.json();
+        })  
     }
 
     findAllCourses() {
