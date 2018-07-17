@@ -1,11 +1,18 @@
-function CourseServiceClient() {
-    this.createCourse = createCourse
-    this.deleteCourse = deleteCourse
-    this.findAllCourses = findAllCourses
-    this.findCourseById = findCourseById
-    this.updateCourse = updateCourse
+let _singleton = Symbol();
 
-    function createCourse(courseObjStr) {
+const COURSE_API_URL = 'http://localhost:8080/api/course';
+export default class CourseServiceClient {
+   constructor(singletonToken) {
+       if (_singleton !== singletonToken)
+           throw new Error('Cannot instantiate directly.');
+   }
+   static get instance() {
+       if(!this[_singleton])
+           this[_singleton] = new CourseServiceClient(_singleton);
+       return this[_singleton]
+   }
+
+    createCourse(courseObjStr) {
         return fetch('/api/course/', {
             method: 'post',
             body: courseObjStr,
@@ -15,20 +22,20 @@ function CourseServiceClient() {
         })
     }
 
-    function deleteCourse(id) {
+    deleteCourse(id) {
         return fetch('/api/course/' + id, {
             method: 'delete'
         })
     }
 
-    function findAllCourses(callback) {
-        return $.ajax({
-            url: '/api/course',
-            success: callback
-        })
+    findAllCourses() {
+        return fetch(COURSE_API_URL)
+            .then(function(response){
+                return response.json();
+            });
     }
 
-    function findCourseById(id) {
+    findCourseById(id) {
         return fetch('/api/course' + id, {
             method: 'get'
         }).then(function(response) {
@@ -36,7 +43,7 @@ function CourseServiceClient() {
         })
     }
 
-    function updateCourse(id, courseObjStr) {
+    updateCourse(id, courseObjStr) {
         return fetch('/api/course' + id, {
             method: 'put',
             body: courseObjStr,
