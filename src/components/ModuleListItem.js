@@ -5,6 +5,9 @@ export default class ModuleListItem extends React.Component {
       }
       render() {
         return (
-          <li>{this.props.module.title}</li>
-      )}
+          <li>{this.props.module.title} 
+          <button onClick={() => 
+            {this.props.delete(this.props.module.id)}}
+            >DELETE</button></li>
+        )}
 }      

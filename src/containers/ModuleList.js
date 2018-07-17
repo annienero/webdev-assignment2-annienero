@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ModuleServiceClient from '../services/ModuleServiceClient';
 import ModuleListItem from '../components/ModuleListItem';
 
+//TODO edit modules
 export default class ModuleList extends Component {
     constructor(props) {
         super(props);
@@ -13,10 +14,18 @@ export default class ModuleList extends Component {
         this.renderModules = this.renderModules.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
         this.setModuleTitle = this.setModuleTitle.bind(this);
+        this.deleteModule = this.deleteModule.bind(this);
         this.createModule = this.createModule.bind(this);
-        this.findAllModulesForCourse = this.findAllModulesForCourse.bind(this);
-        
     }
+
+    deleteModule(moduleId) {
+        this.moduleService
+          .deleteModule(moduleId)
+          .then(() => {
+            this.findAllModulesForCourse
+              (this.state.courseId)
+         });
+      }      
 
     componentWillReceiveProps(newProps) {
         this.setCourseId(newProps.courseId);
@@ -48,7 +57,6 @@ export default class ModuleList extends Component {
 
     componentDidMount() {
         this.setCourseId(this.props.courseId);
-        //this.findAllModulesForCourse(this.props.courseId)
     }
 
     createModule() {
@@ -60,10 +68,9 @@ export default class ModuleList extends Component {
 
     renderModules() {
         let modules = this.state.modules.map((module) => {
-           return <ModuleListItem key={module.id} module={module}/>
+           return <ModuleListItem key={module.id} module={module} delete={this.deleteModule}/>
         });
-
-        return (modules);
+        return (<ul>{modules}</ul>)
     }
      
     render() { 
