@@ -14,7 +14,6 @@ export default class ModuleServiceClient {
     } 
 
     createModule(cid, moduleObjStr) {
-        console.log(MODULE_API_URL.replace('CID', cid))
         return fetch(MODULE_API_URL.replace('CID', cid), {
             method: 'post',
             body: moduleObjStr,

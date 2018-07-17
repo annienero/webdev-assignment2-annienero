@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ModuleServiceClient from '../services/ModuleServiceClient';
+import ModuleListItem from '../components/ModuleListItem';
 
 export default class ModuleList extends Component {
     constructor(props) {
@@ -9,9 +10,12 @@ export default class ModuleList extends Component {
             modules: []
         }
         this.moduleService = ModuleServiceClient.instance;
+        this.renderModules = this.renderModules.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
         this.setModuleTitle = this.setModuleTitle.bind(this);
         this.createModule = this.createModule.bind(this);
+        this.findAllModulesForCourse = this.findAllModulesForCourse.bind(this);
+        
     }
 
     componentWillReceiveProps(newProps) {
@@ -22,7 +26,8 @@ export default class ModuleList extends Component {
     findAllModulesForCourse(courseId) {
         this.moduleService
            .findAllModulesForCourse(courseId)
-           .then((modules) => {this.setModules(modules)});
+           .then((modules) => {
+            this.setState({modules: modules})});
     }
      
     setModules(modules) {
@@ -43,6 +48,7 @@ export default class ModuleList extends Component {
 
     componentDidMount() {
         this.setCourseId(this.props.courseId);
+        //this.findAllModulesForCourse(this.props.courseId)
     }
 
     createModule() {
@@ -54,11 +60,10 @@ export default class ModuleList extends Component {
 
     renderModules() {
         let modules = this.state.modules.map((module) => {
-           return <li key={module.id}>{module.title}</li>
+           return <ModuleListItem key={module.id} module={module}/>
         });
-        return (
-           <ul>{modules}</ul>
-        )
+
+        return (modules);
     }
      
     render() { 

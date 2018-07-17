@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ModuleList from '../components/ModuleList';
+import ModuleList from '../containers/ModuleList';
 
 class CourseEditor extends Component {
     constructor(props) {
