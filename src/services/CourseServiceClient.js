@@ -13,7 +13,8 @@ export default class CourseServiceClient {
    }
 
     createCourse(courseObjStr) {
-        return fetch('/api/course/', {
+        console.log(courseObjStr)
+        return fetch(COURSE_API_URL, {
             method: 'post',
             body: courseObjStr,
             headers: {

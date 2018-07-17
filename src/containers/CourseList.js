@@ -7,6 +7,8 @@ class CourseList extends Component {
         super();
         this.courseService = CourseServiceClient.instance;
         this.state = {courses: []};
+        this.titleChanged = this.titleChanged.bind(this);
+        this.createCourse = this.createCourse.bind(this);
     }
     componentDidMount() {
         this.courseService.findAllCourses()
@@ -21,7 +23,17 @@ class CourseList extends Component {
         });
         return rows
     }
-     
+
+    titleChanged(event) { 
+        this.setState({
+            course: { title: event.target.value }
+        });     
+    }
+
+    createCourse() { 
+        this.courseService.createCourse(JSON.stringify(this.state.course))
+    }
+
     render() {
         return (
             <div>
@@ -36,8 +48,8 @@ class CourseList extends Component {
                     <tbody>
                         {this.courseRows()}
                         <tr>
-                            <th><input id="titleFld" placeholder="cs4550"/></th>
-                            <th><button>Add</button></th>
+                            <th><input onChange={this.titleChanged} placeholder="cs4550"/></th>
+                            <th><button onClick={this.createCourse}>Add</button></th>
                         </tr>
                     </tbody>
                 </table>
