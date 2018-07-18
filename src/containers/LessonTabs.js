@@ -5,7 +5,7 @@ import LessonTab from '../components/LessonTab';
 export default class LessonTabs extends Component {
     constructor(props) {
         super(props);
-        this.state = {courseId: '', moduleId: '', lesson: {title: ''}, lessons: []};
+        this.state = {courseId: '', moduleId: '', lesson: {title: 'New Lesson'}, lessons: []};
         this.lessonService = LessonServiceClient.instance;
         this.setCourseId = this.setCourseId.bind(this);
         this.setModuleId = this.setModuleId.bind(this);
@@ -26,8 +26,7 @@ export default class LessonTabs extends Component {
         this.lessonService.createLesson(this.state.courseId, 
             this.state.moduleId, JSON.stringify(this.state.lesson))
             .then(() => {
-                this.findAllLessonsForModule
-                   (this.state.courseId, this.state.moduleId);
+                this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
              })
     }
      

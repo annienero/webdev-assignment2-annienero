@@ -9,7 +9,7 @@ export default class ModuleList extends Component {
     constructor(props) {
         super(props);
         this.state = {courseId: '',
-            module: {title: ''},
+            module: {title: 'New Module'},
             modules: []
         }
         this.moduleService = ModuleServiceClient.instance;
@@ -80,7 +80,7 @@ export default class ModuleList extends Component {
                 <div>
                     <h4>Module List for courseId:
                         {this.state.courseId}</h4>
-                    <input onChange={this.setModuleTitle} value={this.state.module.title}/>
+                    <input onChange={this.setModuleTitle} placeholder="New Module"/>
                     <button onClick={this.createModule}>Create</button>
                 </div>
                 <div className="row">

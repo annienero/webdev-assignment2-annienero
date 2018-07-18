@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 
-const COURSE_API_URL = 'http://localhost:8080/api/course';
+const COURSE_API_URL = 'http://localhost:8080/api/course'; //TODO
 export default class CourseServiceClient {
    constructor(singletonToken) {
        if (_singleton !== singletonToken)
@@ -40,7 +40,7 @@ export default class CourseServiceClient {
     }
 
     findCourseById(id) {
-        return fetch('/api/course' + id, {
+        return fetch(COURSE_API_URL + '/' + id, {
             method: 'get'
         }).then(function(response) {
             response.json()
@@ -48,7 +48,7 @@ export default class CourseServiceClient {
     }
 
     updateCourse(id, courseObjStr) {
-        return fetch('/api/course' + id, {
+        return fetch(COURSE_API_URL + '/' + id, {
             method: 'put',
             body: courseObjStr,
             headers: {
