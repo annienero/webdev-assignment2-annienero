@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import './lessontabstyle.css';
+import './ModalStyle.css';
 
 
 export default class LessonTab extends React.Component {
