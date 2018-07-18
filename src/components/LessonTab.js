@@ -9,8 +9,7 @@ export default class LessonTab extends React.Component {
         this.onTabClicked = this.onTabClicked.bind(this)
      }
 
-     //TODO this is bad
-     onTabClicked() {
+    onTabClicked() {
         this.setState({
             bgColor: 'blue'
         })

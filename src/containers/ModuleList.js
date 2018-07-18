@@ -5,7 +5,6 @@ import ModuleEditor from './ModuleEditor';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-//TODO edit module title (in editor)
 export default class ModuleList extends Component {
     constructor(props) {
         super(props);

@@ -52,7 +52,6 @@ class CourseList extends Component {
     }
 
     createCourse() {
-        //TODO doesnt work
         if (this.state.course.name === '') {
             this.setState({
                 course: { title: 'New Course' }
