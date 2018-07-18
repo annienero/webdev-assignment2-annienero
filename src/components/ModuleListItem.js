@@ -11,6 +11,9 @@ export default class ModuleListItem extends React.Component {
                 <button onClick={() => 
                     {this.props.delete(this.props.module.id)}}
                     >DELETE</button>
+                <button onClick={() => 
+                    {this.props.edit(this.props.module.id)}}
+                    >EDIT</button>
             </li>
         )
     }

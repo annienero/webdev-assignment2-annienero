@@ -9,15 +9,19 @@ export default class ModuleList extends Component {
     constructor(props) {
         super(props);
         this.state = {courseId: '',
+            moduleId: '',
             module: {title: 'New Module'},
-            modules: []
+            modules: [],
+            buttonText: 'Add'
         }
         this.moduleService = ModuleServiceClient.instance;
         this.renderModules = this.renderModules.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
         this.setModuleTitle = this.setModuleTitle.bind(this);
         this.deleteModule = this.deleteModule.bind(this);
-        this.createModule = this.createModule.bind(this);
+        this.onAddUpdateClicked = this.onAddUpdateClicked.bind(this);
+        this.editModule = this.editModule.bind(this);
+        this.updateModule = this.updateModule.bind(this);
     }
     
     deleteModule(moduleId) {
@@ -60,17 +64,39 @@ export default class ModuleList extends Component {
         this.setCourseId(this.props.courseId);
     }
 
-    createModule() {
-        this.moduleService.createModule(this.state.courseId, JSON.stringify(this.state.module)).then(() => {
-            this.findAllModulesForCourse(this.state.courseId);
-         })
+    onAddUpdateClicked() {
+        if (this.state.buttonText === 'Add') {
+            this.moduleService.createModule(this.state.courseId, JSON.stringify(this.state.module)).then(() => {
+                this.findAllModulesForCourse(this.state.courseId);
+            })
+        } else {
+            this.updateModule()
+        }
     }
 
     renderModules() {
         let modules = this.state.modules.map((module) => {
-           return <ModuleListItem key={module.id} module={module} courseId={this.state.courseId} delete={this.deleteModule}/>
+           return <ModuleListItem key={module.id} module={module} 
+            courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule}/>
         });
         return (<ul>{modules}</ul>)
+    }
+
+    editModule(moduleId) { 
+        this.setState({
+            buttonText: 'Update Title',
+            moduleId: moduleId
+        }) 
+    }
+    
+    updateModule() { 
+        this.moduleService.updateModule(this.state.moduleId, JSON.stringify(this.state.module)).then(() => 
+        { 
+            this.setState({
+                buttonText: 'Add'
+            }) 
+            this.findAllModulesForCourse(this.state.courseId); 
+        })
     }
      
     render() { 
@@ -81,7 +107,7 @@ export default class ModuleList extends Component {
                     <h4>Module List for courseId:
                         {this.state.courseId}</h4>
                     <input onChange={this.setModuleTitle} placeholder="New Module"/>
-                    <button onClick={this.createModule}>Create</button>
+                    <button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
                 </div>
                 <div className="row">
                     <div className="col-4">
