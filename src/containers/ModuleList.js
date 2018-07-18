@@ -25,8 +25,7 @@ export default class ModuleList extends Component {
         this.moduleService
           .deleteModule(moduleId)
           .then(() => {
-            this.findAllModulesForCourse
-              (this.state.courseId)
+            this.findAllModulesForCourse(this.state.courseId)
          });
       }      
 
@@ -64,8 +63,7 @@ export default class ModuleList extends Component {
 
     createModule() {
         this.moduleService.createModule(this.state.courseId, JSON.stringify(this.state.module)).then(() => {
-            this.findAllModulesForCourse
-               (this.state.courseId);
+            this.findAllModulesForCourse(this.state.courseId);
          })
     }
 
