@@ -31,6 +31,13 @@ export default class ModuleServiceClient {
         })
     }
 
+    findAllModules() {
+        return fetch(MODULE_API_URL)
+            .then(function(response){
+                return response.json();
+            });
+    }
+
     findAllModulesForCourse(courseId) {
         return fetch(MODULE_API_URL.replace('CID', courseId))
             .then(function (response) {
@@ -40,7 +47,7 @@ export default class ModuleServiceClient {
 
 
     findModuleById(id) {
-        return fetch('/api/module' + id, {
+        return fetch('http://localhost:8080/api/module/' + id, { //TODO path
             method: 'get'
         }).then(function(response) {
             response.json()
@@ -48,7 +55,7 @@ export default class ModuleServiceClient {
     }
 
     updateModule(id, moduleObjStr) {
-        return fetch('/api/module' + id, {
+        return fetch('http://localhost:8080/api/module/' + id, { //TODO path
             method: 'put',
             body: moduleObjStr,
             headers: {
