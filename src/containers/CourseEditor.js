@@ -26,7 +26,7 @@ class CourseEditor extends Component {
         return (
             <div>
                 <h3>Course {this.state.courseId}</h3>
-                <ModuleList courseId={this.state.courseId} />
+                <ModuleList courseId={this.state.courseId} moduleId={this.state.moduleId} />
             </div>
         )
      }
