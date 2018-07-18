@@ -21,6 +21,9 @@ export default class LessonTab extends React.Component {
             <a className="nav-link active" style={{backgroundColor:this.state.bgColor}}>
                     {this.props.lesson.title}<button onClick={() => 
                         {this.props.delete(this.props.lesson.id)}}>DELETE</button>
+                        <button onClick={() => 
+                    {this.props.edit(this.props.lesson.id)}}
+                    >EDIT</button>
              </a></li>
         )
     }

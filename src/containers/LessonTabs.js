@@ -5,13 +5,16 @@ import LessonTab from '../components/LessonTab';
 export default class LessonTabs extends Component {
     constructor(props) {
         super(props);
-        this.state = {courseId: '', moduleId: '', lesson: {title: 'New Lesson'}, lessons: []};
+        this.state = {courseId: '', moduleId: '', lessonId: '', 
+            lesson: {title: 'New Lesson'}, lessons: [], buttonText: 'Add'};
         this.lessonService = LessonServiceClient.instance;
         this.setCourseId = this.setCourseId.bind(this);
         this.setModuleId = this.setModuleId.bind(this);
         this.setLessonTitle = this.setLessonTitle.bind(this);
-        this.createLesson = this.createLesson.bind(this);
         this.deleteLesson = this.deleteLesson.bind(this);
+        this.onAddUpdateClicked = this.onAddUpdateClicked.bind(this);
+        this.editLesson = this.editLesson.bind(this);
+        this.updateLesson = this.updateLesson.bind(this);
     }
 
     deleteLesson(lessonId) {
@@ -22,12 +25,17 @@ export default class LessonTabs extends Component {
          });
     }
 
-    createLesson() {
-        this.lessonService.createLesson(this.state.courseId, 
-            this.state.moduleId, JSON.stringify(this.state.lesson))
-            .then(() => {
-                this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
-             })
+    onAddUpdateClicked() {
+        if (this.state.buttonText === 'Add') {
+            this.lessonService.createLesson(this.state.courseId, 
+                this.state.moduleId, JSON.stringify(this.state.lesson))
+                .then(() => {
+                    this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
+            })
+        } else {
+            this.updateLesson()
+        }
+        
     }
      
     setLessonTitle(event) {
@@ -49,7 +57,8 @@ export default class LessonTabs extends Component {
         this.setCourseId(this.props.courseId);
         this.setModuleId(this.props.moduleId);
     }
-     componentWillReceiveProps(newProps){
+
+    componentWillReceiveProps(newProps){
         this.setCourseId(newProps.courseId);
         this.setModuleId(newProps.moduleId);
         this.findAllLessonsForModule(newProps.courseId, newProps.moduleId)
@@ -63,25 +72,35 @@ export default class LessonTabs extends Component {
     setLessons(lessons) {
         this.setState({lessons: lessons})
     }
+
+    editLesson(lessonId) { 
+        this.setState({
+            buttonText: 'Update Title',
+            lessonId: lessonId
+        }) 
+    }
+    
+    updateLesson() { 
+        this.lessonService.updateLesson(this.state.lessonId, JSON.stringify(this.state.lesson)).then(() => 
+        { 
+            this.setState({
+                buttonText: 'Add'
+            }) 
+            this.findAllLessonsForModule(this.state.courseId, this.state.moduleId); 
+        })
+    }
      
     renderLessons() {
         let lessons = this.state.lessons.map((lesson) => {
             return <LessonTab className="nav-item" 
                 key={lesson.id} 
                 lesson={lesson}
-                delete={this.deleteLesson}/>
+                delete={this.deleteLesson}
+                edit={this.editLesson}/>
         });
         return (
             <ul className="nav nav-tabs">{lessons}</ul>
         )
-      
-
-        // <ul className="nav nav-tabs">
-        //         <li className="nav-item"><a className="nav-link active"
-        //             href="/course/{this.state.courseId}/module/{this.state.moduleId}/lesson/{this.state.lessonId}">Active Tab</a></li>
-        //         <li className="nav-item"><a className="nav-link"
-        //             href="/tab2">Another Tab</a></li>
-        //     </ul>
      }
       
 
@@ -91,7 +110,7 @@ export default class LessonTabs extends Component {
                 <div>
                     <h4>Lesson Tabs for module {this.state.moduleId}</h4>
                     <input placeholder="New Lesson" value={this.state.lesson.title} onChange={this.setLessonTitle}/>
-                    <button onClick={this.createLesson}>Create</button>
+                    <button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
                 </div>
                 {this.renderLessons()}
             </div>
