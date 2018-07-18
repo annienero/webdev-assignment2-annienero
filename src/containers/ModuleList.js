@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import ModuleServiceClient from '../services/ModuleServiceClient';
 import ModuleListItem from '../components/ModuleListItem';
+import ModuleEditor from './ModuleEditor';
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-//TODO edit modules
+//TODO edit module title (in editor)
 export default class ModuleList extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +20,7 @@ export default class ModuleList extends Component {
         this.deleteModule = this.deleteModule.bind(this);
         this.createModule = this.createModule.bind(this);
     }
-
+    
     deleteModule(moduleId) {
         this.moduleService
           .deleteModule(moduleId)
@@ -75,6 +78,7 @@ export default class ModuleList extends Component {
      
     render() { 
         return (
+            <Router>
             <ul className="list-group">
                 <div>
                     <h4>Module List for courseId:
@@ -82,8 +86,17 @@ export default class ModuleList extends Component {
                     <input onChange={this.setModuleTitle} value={this.state.module.title}/>
                     <button onClick={this.createModule}>Create</button>
                 </div>
-                {this.renderModules()}
+                <div className="row">
+                    <div className="col-4">
+                        {this.renderModules()}
+                    </div>
+                    <div className="col-8">
+                        <Route path="/course/:courseId/module/:moduleId"
+                            component={ModuleEditor}/>
+                    </div>
+                </div>
             </ul>
+            </Router>
         );
     }   
 }

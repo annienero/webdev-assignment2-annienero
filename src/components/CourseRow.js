@@ -6,16 +6,15 @@ export default class CourseRow extends Component {
     render() {
         return(
             <tr>
-                <td>{this.props.course.title}</td>
+                <td><Link to={`/course/${this.props.course.id}/edit`}>
+                    {this.props.course.title}
+                </Link></td>
                 <td>{this.props.course.created}</td>
                 <td>{this.props.course.modified}</td>
                 <td><button onClick={() => { 
                     this.props.delete(this.props.course.id)
                     }}>Delete</button>
                 </td>
-                <td><Link to={`/course/${this.props.course.id}/edit`}>
-                    <button>View Course</button>
-                </Link></td>
             </tr>)
     }
 }
