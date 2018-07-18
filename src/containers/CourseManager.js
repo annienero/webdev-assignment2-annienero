@@ -11,6 +11,7 @@ export default class CourseManager extends Component {
             <Router>
                 <div>
                     <h1>Course Manager</h1>
+                     {/* TODO The default view of the container will be to display a list of courses using the course list component. */}
                     <Route path="/course/list" component={CourseList}></Route>
                     <Route path="/course/:courseId/edit" component={CourseEditor}></Route>
                 </div>   

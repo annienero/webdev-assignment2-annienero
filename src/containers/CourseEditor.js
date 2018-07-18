@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ModuleList from '../containers/ModuleList';
 
+//TODO renaming courses
 class CourseEditor extends Component {
     constructor(props) {
         super(props);

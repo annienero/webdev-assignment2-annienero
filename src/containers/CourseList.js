@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import CourseRow from '../components/CourseRow'
 import CourseServiceClient from '../services/CourseServiceClient'
 
-class CourseList extends Component {
 
-    //TODO updating courses
+// TODO  Each course row displays 4 columns:  the title of the course, 
+// the owner of the course, the date and time last modified. 
+// An icon is shown to the left of the title.
+
+class CourseList extends Component {
     constructor() {
         super();
         this.courseService = CourseServiceClient.instance;
@@ -25,14 +28,13 @@ class CourseList extends Component {
      
     deleteCourse(courseId) { 
         this.courseService.deleteCourse(courseId).then(() => 
-        { this.findAllCourses(); }
-    )
+        { this.findAllCourses(); })
     }
 
     findAllCourses() {
         this.courseService.findAllCourses()
         .then(courses => {
-            this.setState({courses: courses, courseId: this.state.courseId});
+            this.setState({courses: courses});
         });
     }
      
@@ -49,7 +51,13 @@ class CourseList extends Component {
         });     
     }
 
-    createCourse() { 
+    createCourse() {
+        //TODO doesnt work
+        if (this.state.course.name === '') {
+            this.setState({
+                course: { title: 'New Course' }
+            });    
+        }
         this.courseService.createCourse(JSON.stringify(this.state.course)).then(() => 
             { this.findAllCourses(); }
         )
