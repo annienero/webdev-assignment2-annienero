@@ -49,7 +49,7 @@ export default class LessonServiceClient {
     findAllLessonsForModule(cid, mid) {
         return fetch(LESSON_API_URL.replace('CID', cid).replace('MID', mid))
         .then(function(response) {
-            response.json()
+            return response.json()
         })
     }
 
