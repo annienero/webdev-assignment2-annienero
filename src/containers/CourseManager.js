@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import CourseList from './CourseList'
 import CourseEditor from './CourseEditor'
+import ModuleEditor from './ModuleEditor'
 
 export default class CourseManager extends Component {
     render() {
@@ -14,6 +15,7 @@ export default class CourseManager extends Component {
                      {/* TODO The default view of the container will be to display a list of courses using the course list component. */}
                     <Route path="/course/list" component={CourseList}></Route>
                     <Route path="/course/:courseId/edit" component={CourseEditor}></Route>
+                    <Route path="/course/:courseId/module/:moduleId/module/lesson"component={ModuleEditor}/>
                 </div>   
             </Router>            
         )
