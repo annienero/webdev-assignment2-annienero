@@ -35,8 +35,8 @@ export default class CourseRow extends Component {
                         {this.props.course.title}
                     </Link></td>
                     <td>{this.props.course.owner}</td>
-                    <td>{this.props.course.created}</td>
-                    <td>{this.props.course.modified}</td>
+                    <td>{new Date(this.props.course.created).toLocaleString()}</td>
+                    <td>{new Date(this.props.course.modified).toLocaleString()}</td>
                     <td><i className="fa fa-trash" onClick={this.handleShow}></i></td>
                     <td><i className="fa fa-pencil" onClick={() => { 
                         this.props.edit(this.props.course.id)}}></i></td>

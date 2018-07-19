@@ -32,10 +32,12 @@ export default class ModuleList extends Component {
     }
     
     deleteModule(moduleId) {
+        window.location.href = "http://localhost:3000/course/22/edit"; //TODO
         this.moduleService
           .deleteModule(moduleId)
           .then(() => {
-            this.findAllModulesForCourse(this.state.courseId)
+            this.setState({selectedItem: null},
+                this.findAllModulesForCourse(this.state.courseId));
          });
       }      
 
