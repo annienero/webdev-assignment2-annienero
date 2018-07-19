@@ -7,13 +7,16 @@ class CourseList extends Component {
     constructor() {
         super();
         this.courseService = CourseServiceClient.instance;
-        this.state = {courses: [], courseId: '', course: {title: 'New Course'}, buttonText: 'Add'};
+        this.state = {courses: [], courseId: '',
+            course: {title: 'New Course', created: '', modified: '', owner: ''},
+            buttonText: 'Add'};
         this.selectCourse = this.selectCourse.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
         this.onAddUpdateClicked = this.onAddUpdateClicked.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
         this.editCourse = this.editCourse.bind(this);
         this.updateCourse = this.updateCourse.bind(this);
+        this.onAddClicked = this.onAddClicked.bind(this);
     }
 
     componentDidMount() {
@@ -68,12 +71,23 @@ class CourseList extends Component {
 
     onAddUpdateClicked() {
         if (this.state.buttonText === 'Add') {
-            this.courseService.createCourse(JSON.stringify(this.state.course)).then(() => 
-            { this.findAllCourses(); }
-            )
+            this.onAddClicked() 
         } else {
             this.updateCourse()
         }
+    }
+
+    onAddClicked() {
+        // var curTime = JSON.stringify(new Date());
+        // return this.setState({
+        //         course: {owner: 'me', created: curTime, modified: curTime}
+        //     }, () => {
+        //         alert('state updated')
+                this.courseService.createCourse(JSON.stringify(this.state.course))
+                    .then(() => { 
+                        this.findAllCourses();
+                    })
+               // }); 
     }
 
     render() {
@@ -90,6 +104,7 @@ class CourseList extends Component {
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Title</th>
+                            <th scope="col">Owner</th>
                             <th scope="col">Created</th>
                             <th scope="col">Modified</th>
                             <th/>

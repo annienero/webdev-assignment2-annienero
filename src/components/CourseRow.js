@@ -34,6 +34,7 @@ export default class CourseRow extends Component {
                     <td><Link to={`/course/${this.props.course.id}/edit`}>
                         {this.props.course.title}
                     </Link></td>
+                    <td>{this.props.course.owner}</td>
                     <td>{this.props.course.created}</td>
                     <td>{this.props.course.modified}</td>
                     <td><i className="fa fa-trash" onClick={this.handleShow}></i></td>
