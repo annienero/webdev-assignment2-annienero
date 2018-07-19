@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CourseRow from '../components/CourseRow'
 import CourseServiceClient from '../services/CourseServiceClient'
+import './CourseManagerStyle.css';
 
 class CourseList extends Component {
     constructor() {
@@ -78,18 +79,22 @@ class CourseList extends Component {
 
     render() {
         return (
-            <div>
-                <table>
+            <div class="container">
+                <div id="addCourse">
+                    <th scope="col"><input className="form-control" onChange={this.titleChanged} placeholder="New Course"/></th>
+                    <th scope="col"><button className="btn btn-primary btn-block"
+                        onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>
+                </div>
+
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th><input className="form-control" onChange={this.titleChanged} placeholder="New Course"/></th>
-                            <th><button className="btn btn-primary btn-block"
-                                onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>
-                        </tr>
-                        <tr>
-                            <th>Title</th>
-                            <th>Created</th>
-                            <th>Modified</th>
+                            <th scope="col"></th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Modified</th>
+                            <th/>
+                            <th/>
                         </tr>
                     </thead>
                     <tbody>

@@ -5,6 +5,8 @@ import 'font-awesome/css/font-awesome.min.css'
 import CourseList from './CourseList'
 import CourseEditor from './CourseEditor'
 import ModuleEditor from './ModuleEditor'
+import './CourseManagerStyle.css';
+
 
 export default class CourseManager extends Component {
     render() {
