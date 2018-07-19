@@ -99,27 +99,30 @@ export default class ModuleList extends Component {
             this.findAllModulesForCourse(this.state.courseId); 
         })
     }
-     
+    
+     //TODO completely ignoring col
     render() { 
         return (
             <Router>
-            <ul className="list-group">
-                <div>
-                    <h4>Module List for courseId:
-                        {this.state.courseId}</h4>
-                    <input onChange={this.setModuleTitle} placeholder="New Module"/>
-                    <button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
-                </div>
-                <div className="row">
-                    <div className="col-4">
-                        {this.renderModules()}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <h4>Module List for courseId:
+                                {this.state.courseId}</h4>
+                            <ul className="list-group">
+                                <div>   
+                                    <input onChange={this.setModuleTitle} placeholder="New Module"/>
+                                    <button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
+                                </div>
+                                {this.renderModules()}
+                            </ul>
+                        </div>
+                        <div class="col-8">
+                            <Route path="/course/:courseId/module/:moduleId"
+                                component={ModuleEditor}/>
+                        </div>
                     </div>
-                    <div className="col-8">
-                        <Route path="/course/:courseId/module/:moduleId"
-                            component={ModuleEditor}/>
-                    </div>
                 </div>
-            </ul>
             </Router>
         );
     }   
