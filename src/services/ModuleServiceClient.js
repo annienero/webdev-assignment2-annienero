@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 
-const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module'; //TODO
+const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module'; 
 
 export default class ModuleServiceClient {
     constructor(singletonToken) {
@@ -26,7 +26,7 @@ export default class ModuleServiceClient {
     }
 
     deleteModule(id) {
-        return fetch('http://localhost:8080/api/module/' + id, { //TODO path
+        return fetch('http://localhost:8080/api/module/' + id, {
             method: 'delete'
         })
     }
@@ -47,7 +47,7 @@ export default class ModuleServiceClient {
 
 
     findModuleById(id) {
-        return fetch('http://localhost:8080/api/module/' + id, { //TODO path
+        return fetch('http://localhost:8080/api/module/' + id, { 
             method: 'get'
         }).then(function(response) {
             response.json()
@@ -55,7 +55,7 @@ export default class ModuleServiceClient {
     }
 
     updateModule(id, moduleObjStr) {
-        return fetch('http://localhost:8080/api/module/' + id, { //TODO path
+        return fetch('http://localhost:8080/api/module/' + id, { 
             method: 'put',
             body: moduleObjStr,
             headers: {

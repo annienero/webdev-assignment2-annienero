@@ -99,8 +99,7 @@ export default class ModuleList extends Component {
             this.findAllModulesForCourse(this.state.courseId); 
         })
     }
-    
-     //TODO completely ignoring col
+
     render() { 
         return (
             <Router>

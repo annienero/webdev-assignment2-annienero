@@ -30,6 +30,7 @@ export default class CourseRow extends Component {
     render() {
         return(
                 <tr>
+                    <td><i className="fa fa-file-text"/></td>
                     <td><Link to={`/course/${this.props.course.id}/edit`}>
                         {this.props.course.title}
                     </Link></td>

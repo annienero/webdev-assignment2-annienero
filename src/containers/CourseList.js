@@ -2,11 +2,6 @@ import React, {Component} from 'react';
 import CourseRow from '../components/CourseRow'
 import CourseServiceClient from '../services/CourseServiceClient'
 
-
-// TODO  Each course row displays 4 columns:  the title of the course, 
-// the owner of the course, the date and time last modified. 
-// An icon is shown to the left of the title.
-
 class CourseList extends Component {
     constructor() {
         super();

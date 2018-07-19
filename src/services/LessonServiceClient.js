@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 
-const LESSON_API_URL = 'http://localhost:8080/api/course/CID/module/MID/lesson'; //TODO
+const LESSON_API_URL = 'http://localhost:8080/api/course/CID/module/MID/lesson'; 
 
 export default class LessonServiceClient {
     constructor(singletonToken) {
@@ -26,13 +26,13 @@ export default class LessonServiceClient {
     }
 
     deleteLesson(id) {
-        return fetch('http://localhost:8080/api/lesson/' + id, { //TODO path
+        return fetch('http://localhost:8080/api/lesson/' + id, { 
             method: 'delete'
         })
     }
 
     findLessonById(id) {
-        return fetch('http://localhost:8080/api/lesson/' + id, { //TODO path
+        return fetch('http://localhost:8080/api/lesson/' + id, { 
             method: 'get'
         }).then(function(response) {
             response.json()
@@ -54,7 +54,7 @@ export default class LessonServiceClient {
     }
 
     updateLesson(id, lessonObjStr) {
-        return fetch('http://localhost:8080/api/lesson/' + id, { //TODO path
+        return fetch('http://localhost:8080/api/lesson/' + id, {
             method: 'put',
             body: lessonObjStr,
             headers: {
