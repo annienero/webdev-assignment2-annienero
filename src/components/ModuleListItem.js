@@ -35,14 +35,14 @@ export default class ModuleListItem extends React.Component {
         }
         return (
             <div>
+                <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
                 <li className="list-group-item" onClick={this.props.onClick} style={liStyle}>
-                    <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
                         {this.props.module.title}
-                    </Link>
                     <i className="fa fa-trash" onClick={this.handleShow}></i>
                     <i className="fa fa-pencil" onClick={() => 
                         {this.props.edit(this.props.module.id)}}></i>
                 </li>
+                </Link>
                 <Modal dialogClassName="my-modal" show={this.state.show}>
                     <Modal.Dialog>
                         <Modal.Header>
