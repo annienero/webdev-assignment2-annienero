@@ -104,22 +104,28 @@ export default class ModuleList extends Component {
         return (
             <Router>
                 <div class="container">
-                    <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
                         <div class="col-4">
-                            <h4>Module List for courseId:
-                                {this.state.courseId}</h4>
-                            <ul className="list-group">
-                                <div>   
-                                    <input className="form-control" onChange={this.setModuleTitle} placeholder="New Module"/>
-                                    <button className="btn btn-primary btn-block"
-                                        onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
-                                </div>
-                                {this.renderModules()}
-                            </ul>
+                            <div>
+                                <h4>Module List for courseId:
+                                    {this.state.courseId}</h4>
+                                <ul className="list-group">
+                                    <div>   
+                                        <input className="form-control" onChange={this.setModuleTitle} placeholder="New Module"/>
+                                        <button className="btn btn-primary btn-block"
+                                            onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
+                                    </div>
+                                    {this.renderModules()}
+                                </ul>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
                         <div class="col-8">
-                            <Route path="/course/:courseId/module/:moduleId"
-                                component={ModuleEditor}/>
+                            <div>
+                                <Route path="/course/:courseId/module/:moduleId"
+                                    component={ModuleEditor}/>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 
-const COURSE_API_URL = 'http://localhost:8080/api/course'; //TODO
+const COURSE_API_URL = 'http://localhost:8080/api/course';
 export default class CourseServiceClient {
    constructor(singletonToken) {
        if (_singleton !== singletonToken)
