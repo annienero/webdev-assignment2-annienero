@@ -34,7 +34,8 @@ export default class ModuleList extends Component {
     }
 
     deleteModule(moduleId) {
-        window.location.href = "http://localhost:3000/course/22/edit"; //TODO
+        const location = "https://webdev-assignment2.herokuapp.com/course/" + this.state.module.id + "/edit";
+        window.location.href = location;
         this.moduleService
             .deleteModule(moduleId)
             .then(() => {
