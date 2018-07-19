@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import LessonServiceClient from '../services/LessonServiceClient';
 import LessonTab from '../components/LessonTab';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {Tabs, Tab} from 'react-bootstrap'
 
 export default class LessonTabs extends Component {
     constructor(props) {
@@ -100,21 +101,22 @@ export default class LessonTabs extends Component {
     }
      
     renderLessons() {
+        var i =0;
         let lessons = this.state.lessons.map((lesson) => {
-            return <LessonTab className="nav-item" 
-                key={lesson.id} 
+            i++;
+            return <Tab eventKey={i} title={lesson.title}>
+            <LessonTab
                 lesson={lesson}
                 delete={this.deleteLesson}
                 edit={this.editLesson}/>
+          </Tab>
         });
 
-        //"nav-link" or "nav-link active"
         return (
-            <ul className="nav nav-tabs">{lessons}</ul>
+            <Tabs defaultActiveKey={1}>{lessons}</Tabs>
         )
      }
       
-
     render() { 
         return(
             <div>
