@@ -74,19 +74,18 @@ class CourseList extends Component {
         } else {
             this.updateCourse()
         }
-
     }
 
     render() {
         return (
-            <div class="container">
+            <div className="container">
                 <div id="addCourse">
                     <th scope="col"><input className="form-control" onChange={this.titleChanged} placeholder="New Course"/></th>
                     <th scope="col"><button className="btn btn-primary btn-block"
                         onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>
                 </div>
 
-                <table class="table table-striped">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col"></th>

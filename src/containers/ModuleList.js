@@ -103,9 +103,9 @@ export default class ModuleList extends Component {
     render() { 
         return (
             <Router>
-                <div class="container">
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                        <div class="col-4">
+                <div className="container">
+                    <div className="col-sm-4 col-md-4 col-lg-4">
+                        <div className="col-4">
                             <div>
                                 <ul className="list-group">
                                     <div>   
@@ -118,8 +118,8 @@ export default class ModuleList extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-8">
-                        <div class="col-8">
+                    <div className="col-sm-8 col-md-8 col-lg-8">
+                        <div className="col-8">
                             <div>
                                 <Route path="/course/:courseId/module/:moduleId"
                                     component={ModuleEditor}/>

@@ -97,11 +97,11 @@ export default class LessonTabs extends Component {
         this.setState({
             lessonId: lessonId
         })
-        this.renderLessons
+        this.renderLessons()
     }
      
     renderLessons() {
-        var i =0;
+        var i = 0;
         let lessons = this.state.lessons.map((lesson) => {
             i++;
             return <Tab eventKey={i} title={lesson.title}>
