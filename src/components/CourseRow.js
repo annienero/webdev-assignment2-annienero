@@ -29,31 +29,29 @@ export default class CourseRow extends Component {
 
     render() {
         return(
-            <div>
                 <tr>
                     <td><Link to={`/course/${this.props.course.id}/edit`}>
                         {this.props.course.title}
                     </Link></td>
                     <td>{this.props.course.created}</td>
                     <td>{this.props.course.modified}</td>
-                    <td><i className="fa fa-trash" onClick={this.handleShow}></i></td>
-                    <td><i className="fa fa-pencil" onClick={() => { 
+                    <td><i className="fa fa-trash" onClick={this.handleShow}></i>
+                        <i className="fa fa-pencil" onClick={() => { 
                         this.props.edit(this.props.course.id)}}></i>
                     </td>
-                </tr>
                     <Modal dialogClassName="my-modal" show={this.state.show}>
                     <Modal.Dialog>
                         <Modal.Header>
                             <Modal.Title>DELETE LESSON</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>Are you sure you want to delete this lesson?</Modal.Body>
+                        <Modal.Body>Are you sure you want to delete this course?</Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.onDeleteClicked} bsStyle="primary">Delete Lesson</Button>
+                            <Button onClick={this.onDeleteClicked} bsStyle="primary">Delete Course</Button>
                             <Button onClick={this.handleClose}>Close</Button>
                         </Modal.Footer>
                     </Modal.Dialog>
                 </Modal>
-            </div>    
+                </tr>
         )
     }
 }
