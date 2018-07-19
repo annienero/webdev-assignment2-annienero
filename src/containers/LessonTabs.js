@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LessonServiceClient from '../services/LessonServiceClient';
 import LessonTab from '../components/LessonTab';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class LessonTabs extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ export default class LessonTabs extends Component {
         this.onAddUpdateClicked = this.onAddUpdateClicked.bind(this);
         this.editLesson = this.editLesson.bind(this);
         this.updateLesson = this.updateLesson.bind(this);
+        this.onTabSelected = this.onTabSelected.bind(this);
     }
 
     deleteLesson(lessonId) {
@@ -89,6 +91,13 @@ export default class LessonTabs extends Component {
             this.findAllLessonsForModule(this.state.courseId, this.state.moduleId); 
         })
     }
+
+    onTabSelected(lessonId) {
+        this.setState({
+            lessonId: lessonId
+        })
+        this.renderLessons
+    }
      
     renderLessons() {
         let lessons = this.state.lessons.map((lesson) => {
@@ -98,6 +107,8 @@ export default class LessonTabs extends Component {
                 delete={this.deleteLesson}
                 edit={this.editLesson}/>
         });
+
+        //"nav-link" or "nav-link active"
         return (
             <ul className="nav nav-tabs">{lessons}</ul>
         )

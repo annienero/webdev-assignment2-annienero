@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import ModuleServiceClient from '../services/ModuleServiceClient';
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleEditor from './ModuleEditor';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 export default class ModuleList extends Component {
     constructor(props) {
         super(props);
-        this.state = {courseId: '',
+        this.state = {
+            courseId: '',
             moduleId: '',
             module: {title: 'New Module'},
             modules: [],

@@ -7,10 +7,8 @@ export default class LessonTab extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.state = {
-            bgColor: 'white',
             show: false
         };
-        this.onTabClicked = this.onTabClicked.bind(this)
         this.handleShow = this.handleShow.bind(this)
         this.handleClose = this.handleClose.bind(this)
         this.onDeleteClicked = this.onDeleteClicked.bind(this)
@@ -24,12 +22,6 @@ export default class LessonTab extends React.Component {
         this.setState({ show: true });
     }
 
-    onTabClicked() {
-        this.setState({
-            bgColor: 'blue'
-        })
-    }
-
     onDeleteClicked() {
         this.props.delete(this.props.lesson.id)
         this.handleClose()
@@ -37,16 +29,14 @@ export default class LessonTab extends React.Component {
      
     render() {
         return (
-            <div>
-            <li className="nav-item" onClick={this.onTabClicked}>
-            <a className="nav-link active" style={{backgroundColor:this.state.bgColor}}>
+            <li className="nav-item" onClick={this.props.onClick}>
+            <a className={this.props.active}>
                         {this.props.lesson.title}
                     <button onClick={this.handleShow}>DELETE</button>
                     <button onClick={() => 
                     {this.props.edit(this.props.lesson.id)}}
                     >EDIT</button>
              </a>
-             </li>
              <Modal dialogClassName="my-modal" show={this.state.show}>
                 <Modal.Dialog>
                     <Modal.Header>
@@ -59,7 +49,8 @@ export default class LessonTab extends React.Component {
                     </Modal.Footer>
                 </Modal.Dialog>
             </Modal>
-         </div>
+             </li>
+             
         )
     }
 }      
