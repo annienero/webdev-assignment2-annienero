@@ -35,7 +35,7 @@ export default class LessonServiceClient {
         return fetch('http://localhost:8080/api/lesson/' + id, { 
             method: 'get'
         }).then(function(response) {
-            response.json()
+            return response.json()
         })
     }
 

@@ -91,7 +91,7 @@ export default class LessonTabs extends Component {
         { 
             this.setState({
                 buttonText: 'Add',
-                lesson: {title: 'New Module'}
+                lesson: {title: 'New Lesson'}
             }) 
             this.findAllLessonsForModule(this.state.courseId, this.state.moduleId); 
         })
