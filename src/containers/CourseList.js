@@ -83,7 +83,8 @@ class CourseList extends Component {
                     <thead>
                         <tr>
                             <th><input className="form-control" onChange={this.titleChanged} placeholder="New Course"/></th>
-                            <th><button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>
+                            <th><button className="btn btn-primary btn-block"
+                                onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>
                         </tr>
                         <tr>
                             <th>Title</th>

@@ -110,8 +110,9 @@ export default class ModuleList extends Component {
                                 {this.state.courseId}</h4>
                             <ul className="list-group">
                                 <div>   
-                                    <input onChange={this.setModuleTitle} placeholder="New Module"/>
-                                    <button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
+                                    <input className="form-control" onChange={this.setModuleTitle} placeholder="New Module"/>
+                                    <button className="btn btn-primary btn-block"
+                                        onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
                                 </div>
                                 {this.renderModules()}
                             </ul>

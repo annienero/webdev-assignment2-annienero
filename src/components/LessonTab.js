@@ -43,8 +43,10 @@ export default class LessonTab extends React.Component {
                     </Modal.Header>
                     <Modal.Body>Are you sure you want to delete this lesson?</Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.onDeleteClicked} bsStyle="primary">Delete Lesson</Button>
-                        <Button onClick={this.handleClose}>Close</Button>
+                        <Button className="btn btn-primary btn-block"
+                            onClick={this.onDeleteClicked} bsStyle="primary">Delete Lesson</Button>
+                        <Button className="btn btn-primary btn-block"
+                            onClick={this.handleClose}>Close</Button>
                     </Modal.Footer>
                 </Modal.Dialog>
             </Modal>

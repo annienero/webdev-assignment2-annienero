@@ -120,8 +120,9 @@ export default class LessonTabs extends Component {
             <div>
                 <div>
                     <h4>Lesson Tabs for module {this.state.moduleId}</h4>
-                    <input placeholder="New Lesson" value={this.state.lesson.title} onChange={this.setLessonTitle}/>
-                    <button onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
+                    <input className="form-control" placeholder="New Lesson" value={this.state.lesson.title} onChange={this.setLessonTitle}/>
+                    <button className="btn btn-primary btn-block"
+                         onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
                 </div>
                 {this.renderLessons()}
             </div>
