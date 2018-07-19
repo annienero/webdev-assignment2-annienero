@@ -92,17 +92,22 @@ export default class ModuleList extends Component {
     }
 
     editModule(moduleId) { 
-        this.setState({
-            buttonText: 'Update Title',
-            moduleId: moduleId
-        }) 
+        this.moduleService.findModuleById(moduleId)
+            .then(module => {
+            this.setState({
+                buttonText: 'Update Title',
+                moduleId: moduleId,
+                module: {title: module.title}
+            }) 
+        })
     }
     
     updateModule() { 
         this.moduleService.updateModule(this.state.moduleId, JSON.stringify(this.state.module)).then(() => 
         { 
             this.setState({
-                buttonText: 'Add'
+                buttonText: 'Add',
+                module: {title: 'New Module'}
             }) 
             this.findAllModulesForCourse(this.state.courseId); 
         })
@@ -116,6 +121,7 @@ export default class ModuleList extends Component {
                         <ul className="list-group">
                             <div>   
                                 <input className="form-control" 
+                                    value={this.state.module.title}
                                     onChange={this.setModuleTitle} placeholder="New Module"/>
                                 <button className="btn btn-primary btn-block"
                                     onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>

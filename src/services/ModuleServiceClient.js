@@ -50,7 +50,7 @@ export default class ModuleServiceClient {
         return fetch('http://localhost:8080/api/module/' + id, { 
             method: 'get'
         }).then(function(response) {
-            response.json()
+            return response.json()
         })
     }
 
