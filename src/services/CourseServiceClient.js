@@ -43,7 +43,7 @@ export default class CourseServiceClient {
         return fetch(COURSE_API_URL + '/' + id, {
             method: 'get'
         }).then(function(response) {
-            response.json()
+            return response.json()
         })
     }
 

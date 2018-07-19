@@ -30,10 +30,7 @@ export default class ModuleEditor extends React.Component {
 
   render() {
      return (
-       <div>
-        <h1>Module Editor</h1>
-        {this.state.courseId},
-        {this.state.moduleId}
         <LessonTabs courseId={this.state.courseId} moduleId={this.state.moduleId}/>
-      </div>
-)}}
+    )
+  }
+}

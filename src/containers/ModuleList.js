@@ -107,8 +107,6 @@ export default class ModuleList extends Component {
                     <div class="col-sm-4 col-md-4 col-lg-4">
                         <div class="col-4">
                             <div>
-                                <h4>Module List for courseId:
-                                    {this.state.courseId}</h4>
                                 <ul className="list-group">
                                     <div>   
                                         <input className="form-control" onChange={this.setModuleTitle} placeholder="New Module"/>
