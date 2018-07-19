@@ -113,25 +113,20 @@ export default class ModuleList extends Component {
             <Router>
                 <div className="container">
                     <div className="col-sm-4 col-md-4 col-lg-4">
-                        <div className="col-4">
-                            <div>
-                                <ul className="list-group">
-                                    <div>   
-                                        <input className="form-control" onChange={this.setModuleTitle} placeholder="New Module"/>
-                                        <button className="btn btn-primary btn-block"
-                                            onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
-                                    </div>
-                                    {this.renderModules()}
-                                </ul>
+                        <ul className="list-group">
+                            <div>   
+                                <input className="form-control" 
+                                    onChange={this.setModuleTitle} placeholder="New Module"/>
+                                <button className="btn btn-primary btn-block"
+                                    onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
                             </div>
-                        </div>
+                            {this.renderModules()}
+                        </ul>
                     </div>
                     <div className="col-sm-8 col-md-8 col-lg-8">
-                        <div className="col-8">
-                            <div>
-                                <Route path="/course/:courseId/module/:moduleId"
-                                    component={ModuleEditor}/>
-                            </div>
+                        <div>
+                            <Route path="/course/:courseId/module/:moduleId/"
+                                component={ModuleEditor}/>
                         </div>
                     </div>
                 </div>
