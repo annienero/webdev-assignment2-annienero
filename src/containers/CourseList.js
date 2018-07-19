@@ -102,7 +102,7 @@ class CourseList extends Component {
     render() {
         return (
             <div className="container">
-                <div id="addCourse">
+                <div id="addElement">
                     <th scope="col"><input className="form-control" onChange={this.titleChanged} placeholder="New Course" value={this.state.course.title} /></th>
                     <th scope="col"><button className="btn btn-primary btn-block"
                         onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>

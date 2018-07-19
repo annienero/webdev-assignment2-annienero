@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import './ModalStyle.css';
+import './ModuleListItemStyle.css';
 
 export default class ModuleListItem extends React.Component {
     constructor(props, context) {
@@ -17,7 +18,7 @@ export default class ModuleListItem extends React.Component {
     handleClose() {
         this.setState({ show: false });
     }
-    
+
     handleShow() {
         this.setState({ show: true });
     }
@@ -35,14 +36,11 @@ export default class ModuleListItem extends React.Component {
         }
         return (
             <div>
-                <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
-                <li className="list-group-item" onClick={this.props.onClick} style={liStyle}>
-                        {this.props.module.title}
-                    <i className="fa fa-trash" onClick={this.handleShow}></i>
-                    <i className="fa fa-pencil" onClick={() => 
-                        {this.props.edit(this.props.module.id)}}></i>
+                <li className="list-group-item" style={liStyle}>
+                    <Link onClick={this.props.onClick} to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>{this.props.module.title}</Link>
+                    <i id="moduleIcon" className="fa fa-trash" onClick={this.handleShow}></i>
+                    <i id="moduleIcon" className="fa fa-pencil" onClick={() => { this.props.edit(this.props.module.id) }}></i>
                 </li>
-                </Link>
                 <Modal dialogClassName="my-modal" show={this.state.show}>
                     <Modal.Dialog>
                         <Modal.Header>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ModuleList from '../containers/ModuleList';
 import CourseServiceClient from '../services/CourseServiceClient';
-//import './CourseEditorStyle.css';
+import './CourseEditorStyle.css';
 
 
 class CourseEditor extends Component {

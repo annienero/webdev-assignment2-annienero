@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import './ModalStyle.css';
+import './LessonTabStyle.css';
 
 export default class LessonTab extends React.Component {
     constructor(props, context) {
@@ -28,9 +29,9 @@ export default class LessonTab extends React.Component {
      
     render() {
         return (
-            <a>
-                <i className="fa fa-trash" onClick={this.handleShow}></i>
-                <i className="fa fa-pencil" onClick={() => 
+            <div>
+                <i id="lessonIcon" className="fa fa-trash fa-3x" onClick={this.handleShow}></i>
+                <i id="lessonIcon" className="fa fa-pencil fa-3x" onClick={() => 
                     {this.props.edit(this.props.lesson.id)}}></i>
              <Modal dialogClassName="my-modal" show={this.state.show}>
                 <Modal.Dialog>
@@ -46,7 +47,7 @@ export default class LessonTab extends React.Component {
                     </Modal.Footer>
                 </Modal.Dialog>
             </Modal>
-            </a> 
+            </div> 
         )
     }
 }      

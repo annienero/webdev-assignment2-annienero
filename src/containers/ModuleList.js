@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ModuleServiceClient from '../services/ModuleServiceClient';
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleEditor from './ModuleEditor';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './CourseManagerStyle.css';
+
 
 export default class ModuleList extends Component {
     constructor(props) {
@@ -11,7 +13,7 @@ export default class ModuleList extends Component {
         this.state = {
             courseId: '',
             moduleId: '',
-            module: {title: 'New Module'},
+            module: { title: 'New Module' },
             modules: [],
             buttonText: 'Add',
             selectedItem: null
@@ -28,18 +30,18 @@ export default class ModuleList extends Component {
     }
 
     moduleClicked(id) {
-        this.setState({selectedItem: id});
+        this.setState({ selectedItem: id });
     }
-    
+
     deleteModule(moduleId) {
         window.location.href = "http://localhost:3000/course/22/edit"; //TODO
         this.moduleService
-          .deleteModule(moduleId)
-          .then(() => {
-            this.setState({selectedItem: null},
-                this.findAllModulesForCourse(this.state.courseId));
-         });
-      }      
+            .deleteModule(moduleId)
+            .then(() => {
+                this.setState({ selectedItem: null },
+                    this.findAllModulesForCourse(this.state.courseId));
+            });
+    }
 
     componentWillReceiveProps(newProps) {
         this.setCourseId(newProps.courseId);
@@ -48,17 +50,18 @@ export default class ModuleList extends Component {
 
     findAllModulesForCourse(courseId) {
         this.moduleService
-           .findAllModulesForCourse(courseId)
-           .then((modules) => {
-            this.setState({modules: modules})});
+            .findAllModulesForCourse(courseId)
+            .then((modules) => {
+                this.setState({ modules: modules })
+            });
     }
-     
+
     setModules(modules) {
-        this.setState({modules: modules})
+        this.setState({ modules: modules })
     }
-     
+
     setModuleTitle(event) {
-        this.setState({ 
+        this.setState({
             module: {
                 title: event.target.value
             }
@@ -66,7 +69,7 @@ export default class ModuleList extends Component {
     }
 
     setCourseId(courseId) {
-        this.setState({courseId: courseId});
+        this.setState({ courseId: courseId });
     }
 
     componentDidMount() {
@@ -86,47 +89,49 @@ export default class ModuleList extends Component {
     renderModules() {
         let modules = this.state.modules.map((module) => {
             var selected = this.state.selectedItem == module.id;
-           return <ModuleListItem key={module.id} module={module} 
-           onClick={this.moduleClicked.bind(this, module.id)} isSelected={selected}
-            courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule}/>
+            return <ModuleListItem key={module.id} module={module}
+                onClick={this.moduleClicked.bind(this, module.id)} isSelected={selected}
+                courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule} />
         });
         return (<ul className="list-group">{modules}</ul>)
     }
 
-    editModule(moduleId) { 
+    editModule(moduleId) {
         this.moduleService.findModuleById(moduleId)
             .then(module => {
-            this.setState({
-                buttonText: 'Update Title',
-                moduleId: moduleId,
-                module: {title: module.title}
-            }) 
-        })
+                this.setState({
+                    buttonText: 'Update Title',
+                    moduleId: moduleId,
+                    module: { title: module.title }
+                })
+            })
     }
-    
-    updateModule() { 
-        this.moduleService.updateModule(this.state.moduleId, JSON.stringify(this.state.module)).then(() => 
-        { 
+
+    updateModule() {
+        this.moduleService.updateModule(this.state.moduleId, JSON.stringify(this.state.module)).then(() => {
             this.setState({
                 buttonText: 'Add',
-                module: {title: 'New Module'}
-            }) 
-            this.findAllModulesForCourse(this.state.courseId); 
+                module: { title: 'New Module' }
+            })
+            this.findAllModulesForCourse(this.state.courseId);
         })
     }
 
-    render() { 
+    render() {
         return (
             <Router>
                 <div className="container">
                     <div className="col-sm-4 col-md-4 col-lg-4">
                         <ul className="list-group">
-                            <div>   
-                                <input className="form-control" 
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="addElement"
                                     value={this.state.module.title}
                                     onChange={this.setModuleTitle} placeholder="New Module"/>
-                                <button className="btn btn-primary btn-block"
-                                    onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"
+                                    onClick={this.onAddUpdateClicked}>
+                                        {this.state.buttonText}</button>
+                                </span>
                             </div>
                             {this.renderModules()}
                         </ul>
@@ -134,11 +139,11 @@ export default class ModuleList extends Component {
                     <div className="col-sm-8 col-md-8 col-lg-8">
                         <div>
                             <Route path="/course/:courseId/module/:moduleId/"
-                                component={ModuleEditor}/>
+                                component={ModuleEditor} />
                         </div>
                     </div>
                 </div>
             </Router>
         );
-    }   
+    }
 }
