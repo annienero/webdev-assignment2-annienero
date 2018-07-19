@@ -13,7 +13,8 @@ export default class ModuleList extends Component {
             moduleId: '',
             module: {title: 'New Module'},
             modules: [],
-            buttonText: 'Add'
+            buttonText: 'Add',
+            selectedItem: null
         }
         this.moduleService = ModuleServiceClient.instance;
         this.renderModules = this.renderModules.bind(this);
@@ -23,6 +24,11 @@ export default class ModuleList extends Component {
         this.onAddUpdateClicked = this.onAddUpdateClicked.bind(this);
         this.editModule = this.editModule.bind(this);
         this.updateModule = this.updateModule.bind(this);
+        this.moduleClicked = this.moduleClicked.bind(this);
+    }
+
+    moduleClicked(id) {
+        this.setState({selectedItem: id});
     }
     
     deleteModule(moduleId) {
@@ -77,7 +83,9 @@ export default class ModuleList extends Component {
 
     renderModules() {
         let modules = this.state.modules.map((module) => {
+            var selected = this.state.selectedItem == module.id;
            return <ModuleListItem key={module.id} module={module} 
+           onClick={this.moduleClicked.bind(this, module.id)} isSelected={selected}
             courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule}/>
         });
         return (<ul className="list-group">{modules}</ul>)

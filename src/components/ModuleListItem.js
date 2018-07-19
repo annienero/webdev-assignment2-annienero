@@ -27,9 +27,15 @@ export default class ModuleListItem extends React.Component {
         this.handleClose()
     }
     render() {
+        var liStyle = {
+            background: '#FFFFFF'
+        };
+        if (this.props.isSelected || this.state.hover_flag) {
+            liStyle['background'] = '#88AAFF'
+        }
         return (
             <div>
-                <li className="list-group-item">
+                <li className="list-group-item" onClick={this.props.onClick} style={liStyle}>
                     <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
                         {this.props.module.title}
                     </Link>
