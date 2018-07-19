@@ -36,10 +36,9 @@ export default class CourseRow extends Component {
                     </Link></td>
                     <td>{this.props.course.created}</td>
                     <td>{this.props.course.modified}</td>
-                    <td><button onClick={this.handleShow}>DELETE</button></td>
-                    <td><button onClick={() => { 
-                        this.props.edit(this.props.course.id)
-                        }}>Edit</button>
+                    <td><i className="fa fa-trash" onClick={this.handleShow}></i></td>
+                    <td><i className="fa fa-pencil" onClick={() => { 
+                        this.props.edit(this.props.course.id)}}></i>
                     </td>
                 </tr>
                     <Modal dialogClassName="my-modal" show={this.state.show}>

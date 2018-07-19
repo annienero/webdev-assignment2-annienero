@@ -80,7 +80,7 @@ export default class ModuleList extends Component {
            return <ModuleListItem key={module.id} module={module} 
             courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule}/>
         });
-        return (<ul>{modules}</ul>)
+        return (<ul className="list-group">{modules}</ul>)
     }
 
     editModule(moduleId) { 

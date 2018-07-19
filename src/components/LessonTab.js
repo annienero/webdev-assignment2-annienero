@@ -32,10 +32,9 @@ export default class LessonTab extends React.Component {
             <li className="nav-item" onClick={this.props.onClick}>
             <a className={this.props.active}>
                         {this.props.lesson.title}
-                    <button onClick={this.handleShow}>DELETE</button>
-                    <button onClick={() => 
-                    {this.props.edit(this.props.lesson.id)}}
-                    >EDIT</button>
+                    <i className="fa fa-trash" onClick={this.handleShow}></i>
+                    <i className="fa fa-pencil" onClick={() => 
+                    {this.props.edit(this.props.lesson.id)}}></i>
              </a>
              <Modal dialogClassName="my-modal" show={this.state.show}>
                 <Modal.Dialog>
