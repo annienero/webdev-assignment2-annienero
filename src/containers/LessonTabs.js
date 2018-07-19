@@ -38,7 +38,6 @@ export default class LessonTabs extends Component {
         } else {
             this.updateLesson()
         }
-        
     }
      
     setLessonTitle(event) {
@@ -77,17 +76,22 @@ export default class LessonTabs extends Component {
     }
 
     editLesson(lessonId) { 
-        this.setState({
-            buttonText: 'Update Title',
-            lessonId: lessonId
-        }) 
+        this.lessonService.findLessonById(lessonId)
+            .then(lesson => {
+            this.setState({
+                buttonText: 'Update Title',
+                lessonId: lessonId,
+                lesson: {title: lesson.title}
+            }) 
+        })
     }
     
     updateLesson() { 
         this.lessonService.updateLesson(this.state.lessonId, JSON.stringify(this.state.lesson)).then(() => 
         { 
             this.setState({
-                buttonText: 'Add'
+                buttonText: 'Add',
+                lesson: {title: 'New Module'}
             }) 
             this.findAllLessonsForModule(this.state.courseId, this.state.moduleId); 
         })
