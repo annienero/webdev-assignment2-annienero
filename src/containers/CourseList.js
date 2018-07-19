@@ -33,17 +33,22 @@ class CourseList extends Component {
     }
 
     editCourse(courseId) { 
-        this.setState({
-            buttonText: 'Update Title',
-            courseId: courseId
-        }) 
+        this.courseService.findCourseById(courseId)
+            .then(course => {
+                this.setState({
+                    buttonText: 'Update Title',
+                    courseId: courseId,
+                    course: {title: course.title}
+                }) 
+            })
     }
     
     updateCourse() { 
         this.courseService.updateCourse(this.state.courseId, JSON.stringify(this.state.course)).then(() => 
         { 
             this.setState({
-                buttonText: 'Add'
+                buttonText: 'Add',
+                course: {title: 'New Course'}
             }) 
             this.findAllCourses(); 
         })
@@ -94,7 +99,7 @@ class CourseList extends Component {
         return (
             <div className="container">
                 <div id="addCourse">
-                    <th scope="col"><input className="form-control" onChange={this.titleChanged} placeholder="New Course"/></th>
+                    <th scope="col"><input className="form-control" onChange={this.titleChanged} placeholder="New Course" value={this.state.course.title}/></th>
                     <th scope="col"><button className="btn btn-primary btn-block"
                         onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button></th>
                 </div>
