@@ -89,7 +89,7 @@ export default class ModuleList extends Component {
 
     renderModules() {
         let modules = this.state.modules.map((module) => {
-            var selected = this.state.selectedItem == module.id;
+            var selected = this.state.selectedItem === module.id;
             return <ModuleListItem key={module.id} module={module}
                 onClick={this.moduleClicked.bind(this, module.id)} isSelected={selected}
                 courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule} />
