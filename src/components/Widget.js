@@ -7,29 +7,32 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
     let selectElement
     return (
         <li>
-             <div>
-                {widget.className === 'Heading' && <Heading showPreview={showPreview}/>}
-                {widget.className === 'Image' && <Image showPreview={showPreview}/>}
-                {widget.className === 'Link' && <Link showPreview={showPreview}/>}
-                {widget.className === 'List' && <List showPreview={showPreview}/>}
-                {widget.className === 'Paragraph' && <Paragraph showPreview={showPreview}/>}
-            </div>
-            {/* maybe move idfk */}
-            <div hidden={showPreview}>
-                <select defaultValue={widget.className} onChange={e => dispatch({ type: SELECT_WIDGET_TYPE, id: widget.id, className: selectElement.value })} ref={node => selectElement = node}>
+            <div>
+                <text>{widget.className} Widget</text>
+                {/* maybe move idfk */}
+                <select defaultValue={widget.className} className='float-right' hidden={showPreview}
+                    onChange={e => dispatch({ type: SELECT_WIDGET_TYPE, id: widget.id, className: selectElement.value })} ref={node => selectElement = node}>
                     <option>Heading</option>
                     <option>Image</option>
                     <option>Link</option>
                     <option>List</option>
                     <option>Paragraph</option>
                 </select>
-                <button onClick={e => (
-                    dispatch({ type: DELETE_WIDGET, id: widget.id })
-                )}>Delete</button>
-                <button hidden={widget.order === 0} onClick={e => (
+                <button className='float-right' hidden={showPreview}
+                    onClick={e => (
+                        dispatch({ type: DELETE_WIDGET, id: widget.id })
+                    )}>Delete</button>
+                <button hidden={widget.order === 0 || showPreview} onClick={e => (
                     dispatch({ type: MOVE_UP, widget: widget }))}>Move Up</button>
-                <button hidden={widget.order === len} onClick={e => (
+                <button hidden={widget.order === len || showPreview} onClick={e => (
                     dispatch({ type: MOVE_DOWN, widget: widget }))}>Move Down</button>
+            </div>
+            <div>
+                {widget.className === 'Heading' && <Heading showPreview={showPreview} />}
+                {widget.className === 'Image' && <Image showPreview={showPreview} />}
+                {widget.className === 'Link' && <Link showPreview={showPreview} />}
+                {widget.className === 'List' && <List showPreview={showPreview} />}
+                {widget.className === 'Paragraph' && <Paragraph showPreview={showPreview} />}
             </div>
         </li>
     )
@@ -40,7 +43,7 @@ export const WidgetContainer = connect()(Widget)
 
 const Heading = (props) => (
     <div>
-        <h2>Heading Widget</h2>
+        <input placeholder="Widget Name" hidden={props.showPreview} />
         <select hidden={props.showPreview}>
             <option>Heading 1</option>
             <option>Heading 2</option>
@@ -49,37 +52,58 @@ const Heading = (props) => (
         <div hidden={props.showPreview}>
             <input placeholder='Heading Text'></input>
         </div>
-        <h1 hidden={!props.showPreview}>Heading Preview</h1> 
+        <h1 hidden={!props.showPreview}>Heading Preview</h1>
         {/* TODO dynamically update heading TYPE and text for preview also post on save*/}
     </div>
 )
 
 
 const Image = (props) => (
-    <h2>Imgage Widget</h2>
+    <div>
+        {/* TODO dynamically update image for preview also post on save*/}
+        <input placeholder="Widget Name" hidden={props.showPreview} />
+        <input placeholder="Image URL" hidden={props.showPreview} />
+        <image hidden={!props.showPreview} />
+    </div>
 )
 
 
 const Link = (props) => (
-    <h2>Link Widget</h2>
+    <div>
+        {/* TODO dynamically update link and text for preview also post on save*/}
+        <input placeholder="Widget Name" hidden={props.showPreview} />
+        <input placeholder="Link text" hidden={props.showPreview} />
+        <input placeholder="Image URL" hidden={props.showPreview} />
+        <image hidden={!props.showPreview} />
+    </div>
 )
 
 
 const List = (props) => (
     <div>
-        <h2>List Widget</h2>
-        <select>
-            <option>Ordered</option>
-            <option>Unordered</option>
-        </select>
+        {/* TODO dynamically update text for preview also post on save*/}
+        <div hidden={props.showPreview}>
+            <input placeholder="Widget Name" />
+            <select>
+                <option>Ordered</option>
+                <option>Unordered</option>
+            </select>
+            <div><textarea placeholder='Enter one list item per line'></textarea></div>
+        </div>
+        <div hidden={!props.showPreview}>
+            <ul>
+                <li>list preview</li>
+                <li>list preview</li>
+            </ul>
+        </div>
     </div>
 )
 
 
 const Paragraph = (props) => (
     <div>
-{/* TODO dynamically update text for preview also post on save*/}
-        <h2>Paragraph Widget</h2>
+        {/* TODO dynamically update text for preview also post on save*/}
+        <input placeholder="Widget Name" hidden={props.showPreview} />
         <textarea placeholder='Paragraph text' hidden={props.showPreview}></textarea>
         <p hidden={!props.showPreview}>Paragraph text preview</p>
     </div>
