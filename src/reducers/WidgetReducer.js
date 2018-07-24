@@ -3,7 +3,7 @@ import {ADD_WIDGET, DELETE_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      from '../constants/WidgetConstants'
 
 let autoIncrement = 0
-export const WidgetReducer = (state = {widgets: []}, action) => {
+export const WidgetReducer = (state = {widgets: [], showPreview: false}, action) => {
     let index
     let newState
     switch(action.type) {
@@ -30,7 +30,7 @@ export const WidgetReducer = (state = {widgets: []}, action) => {
             return {
                 widgets: [
                     ...state.widgets,
-                    {text: 'New Widget', id: autoIncrement++, className: 'Paragraph'}
+                    {text: 'New Widget', id: autoIncrement++, className: 'Heading'}
                 ]
             }
         case DELETE_WIDGET:
@@ -44,20 +44,16 @@ export const WidgetReducer = (state = {widgets: []}, action) => {
                 widgets: action.widgets
             }
         case MOVE_DOWN:
-            index = state.widgets.indexOf(action.widget);
-            state.widgets.move(index, index, index + 1);
-            return state.widgets.splice(0);
+            index = state.widgets.indexOf(action.widget)
+            state.widgets.copyWithin(index, index, index + 1)
+            return state.widgets.splice(0)
         case MOVE_UP:
-            index = state.widgets.indexOf(action.widget);
-            state.widgets.move(index, index - 1);
-            return state.widgets.splice(0);
+            index = state.widgets.indexOf(action.widget)
+            state.widgets.copyWithin(index, index - 1)
+            return state.widgets.splice(0)
         case TOGGLE_PREVIEW:
             newState = JSON.parse(JSON.stringify(state))
             newState.showPreview = !state.showPreview
-            alert(newState.showPreview)
-            // TODO Clicking the preview button changes the widget list view mode to preview 
-            // in which case only the preview section of each widget is rendered and all 
-            // editing elements are hidden as shown below
             return newState
         default: 
             return state

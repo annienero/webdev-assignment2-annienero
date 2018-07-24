@@ -22,7 +22,7 @@ class WidgetList extends Component {
                 </label>
                 <ul>
                     {this.props.widgets.map(widget => (
-                        <WidgetContainer key={widget.id} widget={widget} />
+                        <WidgetContainer key={widget.id} widget={widget} showPreview={this.props.showPreview} />
                     ))}
                 </ul>
                 <button onClick={this.props.addWidget}>Add Widget</button>
@@ -31,11 +31,12 @@ class WidgetList extends Component {
     }
 }
 
-const stateToPropertiesMapper = (state) => (
-    {
-        widgets: state.widgets
+const stateToPropertiesMapper = (state) => {
+    return {
+        widgets: state.widgets,
+        showPreview: state.showPreview
     }
-)
+}
 const dispatcherToPropertiesMapper = dispatch => ({
     findAllWidgets: () => findAllWidgets(dispatch),
     addWidget: () => addWidget(dispatch),
