@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 
 const Widget = ({ widget, dispatch, showPreview, len }) => {
     let selectElement
+    let name = widget.name
     return (
         <li>
             <div>
                 <text>{widget.className} Widget</text>
-                {/* maybe move idfk */}
+                {/* TODO maybe move idfk */}
                 <select defaultValue={widget.className} className='float-right' hidden={showPreview}
                     onChange={e => dispatch({ type: SELECT_WIDGET_TYPE, id: widget.id, className: selectElement.value })} ref={node => selectElement = node}>
                     <option>Heading</option>
@@ -28,6 +29,10 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
                     dispatch({ type: MOVE_DOWN, widget: widget }))}>Move Down</button>
             </div>
             <div>
+                <input type="text" value={name} onChange={alert('i think i have to update state here')} 
+                    ref={(node) => name = node} 
+                    // TODO idk point of above also i cant change name lul
+                    placeholder="Widget Name" hidden={showPreview}/>
                 {widget.className === 'Heading' && <Heading showPreview={showPreview} />}
                 {widget.className === 'Image' && <Image showPreview={showPreview} />}
                 {widget.className === 'Link' && <Link showPreview={showPreview} />}
@@ -43,7 +48,6 @@ export const WidgetContainer = connect()(Widget)
 
 const Heading = (props) => (
     <div>
-        <input placeholder="Widget Name" hidden={props.showPreview} />
         <select hidden={props.showPreview}>
             <option>Heading 1</option>
             <option>Heading 2</option>
@@ -61,7 +65,6 @@ const Heading = (props) => (
 const Image = (props) => (
     <div>
         {/* TODO dynamically update image for preview also post on save*/}
-        <input placeholder="Widget Name" hidden={props.showPreview} />
         <input placeholder="Image URL" hidden={props.showPreview} />
         <image hidden={!props.showPreview} />
     </div>
@@ -71,7 +74,6 @@ const Image = (props) => (
 const Link = (props) => (
     <div>
         {/* TODO dynamically update link and text for preview also post on save*/}
-        <input placeholder="Widget Name" hidden={props.showPreview} />
         <input placeholder="Link text" hidden={props.showPreview} />
         <input placeholder="Image URL" hidden={props.showPreview} />
         <image hidden={!props.showPreview} />
@@ -83,7 +85,6 @@ const List = (props) => (
     <div>
         {/* TODO dynamically update text for preview also post on save*/}
         <div hidden={props.showPreview}>
-            <input placeholder="Widget Name" />
             <select>
                 <option>Ordered</option>
                 <option>Unordered</option>
@@ -103,7 +104,6 @@ const List = (props) => (
 const Paragraph = (props) => (
     <div>
         {/* TODO dynamically update text for preview also post on save*/}
-        <input placeholder="Widget Name" hidden={props.showPreview} />
         <textarea placeholder='Paragraph text' hidden={props.showPreview}></textarea>
         <p hidden={!props.showPreview}>Paragraph text preview</p>
     </div>
