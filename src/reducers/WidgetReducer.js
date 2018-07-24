@@ -1,5 +1,5 @@
 import {ADD_WIDGET, DELETE_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
-     SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW} 
+     SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW, UPDATE_WIDGET_NAME} 
      from '../constants/WidgetConstants'
 
 let autoIncrement = 0
@@ -7,6 +7,18 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
     let index
     let newState
     switch(action.type) {
+        case UPDATE_WIDGET_NAME:
+        alert("updating")
+
+            newState = {
+                widgets: state.widgets.filter((widget) => {
+                    if (widget.id === action.id) {
+                        widget.name = action.name
+                    }
+                    return true;
+                })
+            }
+            return JSON.parse(JSON.stringify(newState))
         case SELECT_WIDGET_TYPE:
             newState = {
                 widgets: state.widgets.filter((widget) => {
@@ -31,7 +43,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: [
                     ...state.widgets,
                     {text: 'New Widget', id: autoIncrement++, className: 'Heading', 
-                        name: 'New Widget' + state.widgets.length, order: state.widgets.length}
+                        name: 'New Widget' + state.widgets.length, widgetOrder: state.widgets.length}
                 ]
             }
         case DELETE_WIDGET:
@@ -46,17 +58,16 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             }
         case MOVE_DOWN:
             index = state.widgets.indexOf(action.widget)
-            state.widgets[index].order++
-            state.widgets[index + 1].order--
+            state.widgets[index].widgetOrder++
+            state.widgets[index + 1].widgetOrder--
             state.widgets.copyWithin(index, index, index + 1)
-            return state.widgets.splice(0)
+            return JSON.parse(JSON.stringify(state))
         case MOVE_UP:
             index = state.widgets.indexOf(action.widget)
-            state.widgets[index].order--
-            state.widgets[index - 1].order++
+            state.widgets[index].widgetOrder--
+            state.widgets[index - 1].widgetOrder++
             state.widgets.copyWithin(index, index, index - 1)
-            alert('new state widgets = ' + state.widgets.splice(0))
-            return state.widgets.splice(0)
+            return JSON.parse(JSON.stringify(state))
         case TOGGLE_PREVIEW:
             newState = JSON.parse(JSON.stringify(state))
             newState.showPreview = !state.showPreview

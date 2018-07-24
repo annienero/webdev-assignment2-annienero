@@ -6,3 +6,5 @@ export const SELECT_WIDGET_TYPE = 'SELECT_WIDGET_TYPE'
 export const MOVE_UP = 'MOVE_UP'
 export const MOVE_DOWN = 'MOVE_DOWN'
 export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW'
+export const UPDATE_WIDGET_NAME = 'UPDATE_WIDGET_NAME'
+

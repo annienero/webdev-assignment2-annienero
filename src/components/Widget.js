@@ -1,5 +1,5 @@
 import React from 'react';
-import { DELETE_WIDGET, SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP } from '../constants/WidgetConstants'
+import { DELETE_WIDGET, SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, UPDATE_WIDGET_NAME } from '../constants/WidgetConstants'
 
 import { connect } from 'react-redux';
 
@@ -10,28 +10,30 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
         <li>
             <div>
                 <text>{widget.className} Widget</text>
-                {/* TODO maybe move idfk */}
-                <select defaultValue={widget.className} className='float-right' hidden={showPreview}
-                    onChange={e => dispatch({ type: SELECT_WIDGET_TYPE, id: widget.id, className: selectElement.value })} ref={node => selectElement = node}>
+                <select defaultValue={widget.className} hidden={showPreview}
+                    onChange={e => dispatch({ type: SELECT_WIDGET_TYPE, id: widget.id, className: selectElement.value })}
+                    ref={node => selectElement = node}>
                     <option>Heading</option>
                     <option>Image</option>
                     <option>Link</option>
                     <option>List</option>
                     <option>Paragraph</option>
                 </select>
-                <button className='float-right' hidden={showPreview}
+                <button hidden={showPreview}
                     onClick={e => (
                         dispatch({ type: DELETE_WIDGET, id: widget.id })
-                    )}>Delete</button>
-                <button hidden={widget.order === 0 || showPreview} onClick={e => (
+                    )}
+                >Delete</button>
+                <button hidden={widget.widgetOrder === 0 || showPreview} onClick={e => (
                     dispatch({ type: MOVE_UP, widget: widget }))}>Move Up</button>
-                <button hidden={widget.order === len - 1 || showPreview} onClick={e => (
+                <button hidden={widget.widgetOrder === len - 1 || showPreview} onClick={e => (
                     dispatch({ type: MOVE_DOWN, widget: widget }))}>Move Down</button>
             </div>
             <div>
-                <input type="text" value={name} //TODO onChange={} 
-                    ref={(node) => name = node} 
-                    // TODO idk point of above also i cant change name lul
+                <input type="text" value={name}
+                    onChange={e => (
+                        dispatch({ type: UPDATE_WIDGET_NAME, id: widget.id, name: name.value}))}
+                    ref={node => name = node}
                     placeholder="Widget Name" hidden={showPreview}/>
                 {widget.className === 'Heading' && <Heading showPreview={showPreview} />}
                 {widget.className === 'Image' && <Image showPreview={showPreview} />}

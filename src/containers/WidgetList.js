@@ -10,7 +10,7 @@ class WidgetList extends Component {
         this.props.findAllWidgets()
     }
     render() {
-        let widgets = this.props.widgets//TODO uncomment when widgets stops being dead .sort((widget1, widget2) => widget1.order > widget2.order)
+        let widgets = this.props.widgets.sort((widget1, widget2) => widget1.widgetOrder > widget2.widgetOrder)
         return (
             <div>
                 <h1>Widget List</h1>
@@ -46,9 +46,7 @@ const dispatcherToPropertiesMapper = dispatch => ({
     findAllWidgets: () => findAllWidgets(dispatch),
     addWidget: () => addWidget(dispatch),
     save: () => save(dispatch),
-    moveUp: () => moveUp(dispatch),
-    moveDown: () => moveDown(dispatch),
     togglePreview: () => togglePreview(dispatch)
 })
 
-export const App = connect(stateToPropertiesMapper, dispatcherToPropertiesMapper)(WidgetList)
+export const WidgetEditor = connect(stateToPropertiesMapper, dispatcherToPropertiesMapper)(WidgetList)
