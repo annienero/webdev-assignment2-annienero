@@ -30,7 +30,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             return {
                 widgets: [
                     ...state.widgets,
-                    {text: 'New Widget', id: autoIncrement++, className: 'Heading'}
+                    {text: 'New Widget', id: autoIncrement++, className: 'Heading', name: 'New Widget' + state.widgets.length, order: state.widgets.length}
                 ]
             }
         case DELETE_WIDGET:
@@ -49,7 +49,8 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             return state.widgets.splice(0)
         case MOVE_UP:
             index = state.widgets.indexOf(action.widget)
-            state.widgets.copyWithin(index, index - 1)
+            state.widgets.copyWithin(index, index, index - 1)
+            alert('new state widgets = ' + state.widgets.splice(0))
             return state.widgets.splice(0)
         case TOGGLE_PREVIEW:
             newState = JSON.parse(JSON.stringify(state))

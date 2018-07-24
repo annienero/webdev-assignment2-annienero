@@ -10,6 +10,7 @@ class WidgetList extends Component {
         this.props.findAllWidgets()
     }
     render() {
+        let widgets = this.props.widgets.sort((widget1, widget2) => widget1.order > widget2.order)
         return (
             <div>
                 <h1>Widget List</h1>
@@ -21,7 +22,8 @@ class WidgetList extends Component {
                         />Preview
                 </label>
                 <ul>
-                    {this.props.widgets.map(widget => (
+                    
+                    {widgets.map(widget => (
                         <WidgetContainer key={widget.id} 
                             widget={widget} 
                             showPreview={this.props.showPreview}

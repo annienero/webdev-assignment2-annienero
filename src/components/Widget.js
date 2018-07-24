@@ -25,11 +25,11 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
                     )}>Delete</button>
                 <button hidden={widget.order === 0 || showPreview} onClick={e => (
                     dispatch({ type: MOVE_UP, widget: widget }))}>Move Up</button>
-                <button hidden={widget.order === len || showPreview} onClick={e => (
+                <button hidden={widget.order === len - 1 || showPreview} onClick={e => (
                     dispatch({ type: MOVE_DOWN, widget: widget }))}>Move Down</button>
             </div>
             <div>
-                <input type="text" value={name} onChange={alert('i think i have to update state here')} 
+                <input type="text" value={name} //TODO onChange={} 
                     ref={(node) => name = node} 
                     // TODO idk point of above also i cant change name lul
                     placeholder="Widget Name" hidden={showPreview}/>
