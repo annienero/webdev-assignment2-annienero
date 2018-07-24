@@ -1,9 +1,10 @@
 import React from 'react';
-import { DELETE_WIDGET, SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, UPDATE_WIDGET_NAME } from '../constants/WidgetConstants'
+import { deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType } from '../actions/WidgetActions'
+
 
 import { connect } from 'react-redux';
 
-const Widget = ({ widget, dispatch, showPreview, len }) => {
+const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType }) => {
     let selectElement
     let name = widget.name
     return (
@@ -11,7 +12,7 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
             <div>
                 <text>{widget.className} Widget</text>
                 <select defaultValue={widget.className} hidden={showPreview}
-                    onChange={e => dispatch({ type: SELECT_WIDGET_TYPE, id: widget.id, className: selectElement.value })}
+                    onChange={() => selectWidgetType(widget.id, selectElement.value)}
                     ref={node => selectElement = node}>
                     <option>Heading</option>
                     <option>Image</option>
@@ -20,19 +21,16 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
                     <option>Paragraph</option>
                 </select>
                 <button hidden={showPreview}
-                    onClick={e => (
-                        dispatch({ type: DELETE_WIDGET, id: widget.id })
-                    )}
-                >Delete</button>
-                <button hidden={widget.widgetOrder === 0 || showPreview} onClick={e => (
-                    dispatch({ type: MOVE_UP, widget: widget }))}>Move Up</button>
-                <button hidden={widget.widgetOrder === len - 1 || showPreview} onClick={e => (
-                    dispatch({ type: MOVE_DOWN, widget: widget }))}>Move Down</button>
+                    onClick={() => deleteWidget(widget)}
+                    >Delete</button>
+                <button hidden={widget.widgetOrder === 0 || showPreview} 
+                    onClick={() => moveUp(widget)}>Move Up</button>
+                <button hidden={widget.widgetOrder === len || showPreview} 
+                    onClick={() => moveDown(widget)}>Move Down</button>
             </div>
             <div>
                 <input type="text" value={name}
-                    onChange={e => (
-                        dispatch({ type: UPDATE_WIDGET_NAME, id: widget.id, name: name.value}))}
+                    onChange={() => updateWidgetName(widget.id, name.value)}
                     ref={node => name = node}
                     placeholder="Widget Name" hidden={showPreview}/>
                 {widget.className === 'Heading' && <Heading showPreview={showPreview} />}
@@ -45,7 +43,21 @@ const Widget = ({ widget, dispatch, showPreview, len }) => {
     )
 }
 
-export const WidgetContainer = connect()(Widget)
+const stateToPropertiesMapperForWidget = (state) => {
+    return {
+        showPreview: state.showPreview,
+        len: state.widgets.length
+    }
+}
+const dispatcherToPropertiesMapperForWidget = dispatch => ({
+    selectWidgetType: (id, selectElement) => selectWidgetType(dispatch, id, selectElement),
+    deleteWidget: (widget) => deleteWidget(dispatch, widget),
+    moveUp: (widget) => moveUp(dispatch, widget),
+    moveDown: (widget) => moveDown(dispatch, widget),
+    updateWidgetName: (id, name) => updateWidgetName(dispatch, id, name)
+})
+
+export const WidgetContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Widget)
 
 
 const Heading = (props) => (

@@ -8,8 +8,6 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
     let newState
     switch(action.type) {
         case UPDATE_WIDGET_NAME:
-        alert("updating")
-
             newState = {
                 widgets: state.widgets.filter((widget) => {
                     if (widget.id === action.id) {
@@ -57,6 +55,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: action.widgets
             }
         case MOVE_DOWN:
+        //TODO lol plz math better
             index = state.widgets.indexOf(action.widget)
             state.widgets[index].widgetOrder++
             state.widgets[index + 1].widgetOrder--

@@ -25,9 +25,7 @@ class WidgetList extends Component {
                     
                     {widgets.map(widget => (
                         <WidgetContainer key={widget.id} 
-                            widget={widget} 
-                            showPreview={this.props.showPreview}
-                            len={this.props.widgets.length} />
+                            widget={widget}/>
                     ))}
                 </ul>
                 <button onClick={this.props.addWidget}>Add Widget</button>
@@ -36,17 +34,17 @@ class WidgetList extends Component {
     }
 }
 
-const stateToPropertiesMapper = (state) => {
+const stateToPropertiesMapperForWidgetList = (state) => {
     return {
         widgets: state.widgets,
         showPreview: state.showPreview
     }
 }
-const dispatcherToPropertiesMapper = dispatch => ({
+const dispatcherToPropertiesMapperForWidgetList = dispatch => ({
     findAllWidgets: () => findAllWidgets(dispatch),
     addWidget: () => addWidget(dispatch),
     save: () => save(dispatch),
     togglePreview: () => togglePreview(dispatch)
 })
 
-export const WidgetEditor = connect(stateToPropertiesMapper, dispatcherToPropertiesMapper)(WidgetList)
+export const WidgetEditor = connect(stateToPropertiesMapperForWidgetList, dispatcherToPropertiesMapperForWidgetList)(WidgetList)
