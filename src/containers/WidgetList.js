@@ -10,7 +10,7 @@ class WidgetList extends Component {
         this.props.findAllWidgets()
     }
     render() {
-        let widgets = this.props.widgets.sort((widget1, widget2) => widget1.order > widget2.order)
+        let widgets = this.props.widgets//TODO uncomment when widgets stops being dead .sort((widget1, widget2) => widget1.order > widget2.order)
         return (
             <div>
                 <h1>Widget List</h1>
