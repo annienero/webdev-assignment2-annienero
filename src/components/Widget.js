@@ -37,15 +37,16 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                     }
                     ref={node => name = node}
                     placeholder="Widget Name" hidden={showPreview}/>
-                {widget.className === 'Heading' && <HeadingContainer 
-                    hidden={showPreview}
-                    widget={widget}/>}
-                {widget.className === 'Image' && <ImageContainer 
-                    showPreview={showPreview} 
-                    widget={widget}/>}
-                {widget.className === 'Link' && <Link hidden={showPreview}/>}
-                {widget.className === 'List' && <ListContainer widget={widget} hidden={showPreview}/>}
-                {widget.className === 'Paragraph' && <Paragraph hidden={showPreview}/>}
+                {widget.className === 'Heading' && 
+                    <HeadingContainer showPreview={showPreview} widget={widget}/>}
+                {widget.className === 'Image' && 
+                    <ImageContainer showPreview={showPreview} widget={widget}/>}
+                {widget.className === 'Link' && 
+                    <LinkContainer widget={widget} showPreview={showPreview}/>}
+                {widget.className === 'List' && 
+                    <ListContainer widget={widget} showPreview={showPreview}/>}
+                {widget.className === 'Paragraph' && 
+                    <ParagraphContainer widget={widget} showPreview={showPreview}/>}
             </div>
         </li>
     )
@@ -120,16 +121,6 @@ const Image = ({ updateWidget, showPreview, widget }) => {
 
 export const ImageContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Image)
 
-const Link = (props) => (
-    <div>
-        {/* TODO dynamically update link and text for preview also post on save*/}
-        <input placeholder="Link text" hidden={props.showPreview} />
-        <input placeholder="Image URL" hidden={props.showPreview} />
-        <image/>
-    </div>
-)
-
-
 const List = ({ updateWidget, showPreview, widget }) => {
     let selectElement
     let text
@@ -140,13 +131,14 @@ const List = ({ updateWidget, showPreview, widget }) => {
                 <select value={widget.listType}
                         ref={node => selectElement = node}
                         onChange={() => {
-                        widget.listType = selectElement.value
-                        updateWidget(widget)}
+                            widget.listType = selectElement.value
+                            updateWidget(widget)}
                     }>
                     <option value='ORDERED'>Ordered</option>
                     <option value='UNORDERED'>Unordered</option>
                 </select>
-                <div><textarea placeholder='Enter one list item per line'
+                <div><textarea value={widget.text}
+                    placeholder='Enter one list item per line'
                     ref={node => text = node}
                     onChange={() => {
                         widget.text = text.value
@@ -177,10 +169,47 @@ const List = ({ updateWidget, showPreview, widget }) => {
 
 export const ListContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(List)
 
-const Paragraph = (props) => (
-    <div>
-        {/* TODO dynamically update text for preview also post on save*/}
-        <textarea placeholder='Paragraph text' hidden={props.showPreview}></textarea>
-        <p>Paragraph text preview</p>
-    </div>
-)
+const Paragraph = ({ updateWidget, showPreview, widget }) => { {/* TODO put preview in way cuter text box or something rn just goes off page*/}
+    let text
+    return (
+        <div>
+            <textarea value={widget.text} 
+                placeholder='Paragraph text' 
+                hidden={showPreview}
+                ref={node => text = node}
+                onChange={() => {
+                    widget.text = text.value
+                    updateWidget(widget)}}></textarea>
+            <p>{widget.text}</p>
+        </div>
+    )
+}
+
+export const ParagraphContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Paragraph)
+
+const Link = ({ updateWidget, showPreview, widget }) => {
+    let href
+    let text
+    return (
+        <div>
+            <input placeholder="Link text"
+                value={widget.text}
+                ref={node => text = node}
+                onChange={() => {
+                    widget.text = text.value
+                    updateWidget(widget)}}
+                hidden={showPreview} />
+            <input placeholder="Image URL" 
+                value={widget.href}
+                ref={node => href = node}
+                onChange={() => {
+                    widget.href = href.value
+                    updateWidget(widget)}}
+                hidden={showPreview} />
+            <h3>Link Preview</h3>
+            <a href={widget.url}>{widget.text}</a> {/* TODO link no click*/}
+        </div>
+    )
+}
+
+export const LinkContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Link)

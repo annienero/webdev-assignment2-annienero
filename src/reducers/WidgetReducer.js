@@ -20,8 +20,8 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             return {
                 widgets: [
                     ...state.widgets,
-                    {text: 'New Widget Text', id: autoIncrement++, className: 'Heading', 
-                        name: 'New Widget', widgetOrder: state.widgets.length, src: '', size: '1'}
+                    {id: autoIncrement++, className: 'Heading', 
+                        name: 'New Widget', widgetOrder: state.widgets.length}
                 ]
             }
         case DELETE_WIDGET:

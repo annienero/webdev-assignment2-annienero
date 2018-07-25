@@ -22,7 +22,6 @@ class WidgetList extends Component {
                         />Preview
                 </label>
                 <ul>
-                    
                     {widgets.map(widget => (
                         <WidgetContainer key={widget.id} 
                             widget={widget}/>
