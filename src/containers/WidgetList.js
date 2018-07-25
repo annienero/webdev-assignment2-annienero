@@ -7,14 +7,14 @@ import { connect } from 'react-redux';
 class WidgetList extends Component {
     constructor(props) {
         super(props)
-        this.props.findAllWidgets()
+        this.props.findAllWidgets(this.props.lessonId)
     }
     render() {
         let widgets = this.props.widgets.sort((widget1, widget2) => widget1.widgetOrder > widget2.widgetOrder)
         return (
             <div>
                 <h1>Widget List</h1>
-                <button onClick={this.props.save}>Save</button>
+                <button onClick={() => this.props.save(this.props.lessonId)}>Save</button>
                 <label>
                     <input
                         type="checkbox"
@@ -41,9 +41,9 @@ const stateToPropertiesMapperForWidgetList = (state) => {
     }
 }
 const dispatcherToPropertiesMapperForWidgetList = dispatch => ({
-    findAllWidgets: () => findAllWidgets(dispatch),
+    findAllWidgets: (id) => findAllWidgets(dispatch, id),
     addWidget: () => addWidget(dispatch),
-    save: () => save(dispatch),
+    save: (id) => save(dispatch, id),
     togglePreview: () => togglePreview(dispatch)
 })
 

@@ -39,7 +39,7 @@ export default class LessonTab extends React.Component {
                 <i id="lessonIcon" className="fa fa-pencil fa-3x" 
                     onClick={() => { this.props.edit(this.props.lesson.id) }}></i>
                 <Provider store={store}>
-                    <WidgetEditor/>
+                    <WidgetEditor lessonId={this.props.lesson.id}/>
                 </Provider>
                 <Modal dialogClassName="my-modal" show={this.state.show}>
                     <Modal.Dialog>

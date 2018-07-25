@@ -2,8 +2,8 @@ import {ADD_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      MOVE_UP, MOVE_DOWN, DELETE_WIDGET, TOGGLE_PREVIEW,
      SELECT_WIDGET_TYPE, UPDATE_WIDGET_NAME} from '../constants/WidgetConstants'
 
-export const findAllWidgets = dispatch => {
-    fetch('http://localhost:8080/api/widget') //TODO eventually do this for each lesson
+export const findAllWidgets = (dispatch, id) => {
+    fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: FIND_ALL_WIDGETS,
@@ -15,8 +15,8 @@ export const addWidget = dispatch => {
     dispatch({type: ADD_WIDGET})
 }
 
-export const save = dispatch => {
-    dispatch({type: SAVE_WIDGETS})
+export const save = (dispatch, id) => {
+    dispatch({type: SAVE_WIDGETS, id: id})
 }
 
 export const moveUp = (dispatch, widget) => {
