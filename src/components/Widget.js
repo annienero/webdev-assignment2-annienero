@@ -44,7 +44,7 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                     showPreview={showPreview} 
                     widget={widget}/>}
                 {widget.className === 'Link' && <Link hidden={showPreview}/>}
-                {widget.className === 'List' && <List hidden={showPreview}/>}
+                {widget.className === 'List' && <ListContainer widget={widget} hidden={showPreview}/>}
                 {widget.className === 'Paragraph' && <Paragraph hidden={showPreview}/>}
             </div>
         </li>
@@ -130,25 +130,52 @@ const Link = (props) => (
 )
 
 
-const List = (props) => (
-    <div>
-        {/* TODO dynamically update text for preview also post on save*/}
-        <div hidden={props.showPreview}>
-            <select>
-                <option>Ordered</option>
-                <option>Unordered</option>
-            </select>
-            <div><textarea placeholder='Enter one list item per line'></textarea></div>
-        </div>
+const List = ({ updateWidget, showPreview, widget }) => {
+    let selectElement
+    let text
+    return (
         <div>
-            <ul>
-                <li>list preview</li>
-                <li>list preview</li>
-            </ul>
+            {/* TODO preview only shows after i update listtype*/}
+            <div hidden={showPreview}>
+                <select value={widget.listType}
+                        ref={node => selectElement = node}
+                        onChange={() => {
+                        widget.listType = selectElement.value
+                        updateWidget(widget)}
+                    }>
+                    <option value='ORDERED'>Ordered</option>
+                    <option value='UNORDERED'>Unordered</option>
+                </select>
+                <div><textarea placeholder='Enter one list item per line'
+                    ref={node => text = node}
+                    onChange={() => {
+                        widget.text = text.value
+                        updateWidget(widget)}
+                }></textarea></div>
+            </div>
+            <div>
+                {widget.listType === 'UNORDERED' &&
+                    <ul>
+                        {widget.text.split('\n').map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
+            
+                }
+                {widget.listType === 'ORDERED' &&
+                    <ol>
+                        {widget.text.split('\n').map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ol>
+            
+                }
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
+export const ListContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(List)
 
 const Paragraph = (props) => (
     <div>
