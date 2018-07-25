@@ -25,7 +25,7 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                     >Delete</button>
                 <button hidden={widget.widgetOrder === 0 || showPreview} 
                     onClick={() => moveUp(widget)}>Move Up</button>
-                <button hidden={widget.widgetOrder === len || showPreview} 
+                <button hidden={widget.widgetOrder === len - 1 || showPreview} 
                     onClick={() => moveDown(widget)}>Move Down</button>
             </div>
             <div>
