@@ -28,7 +28,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             }
             return JSON.parse(JSON.stringify(newState))
         case SAVE_WIDGETS:
-            fetch('http://localhost:8080/api/lesson/62/widget/save', { //TODO eventually ACTUALLY do this for each lesson
+            fetch('http://localhost:8080/api/lesson/' + action.id + '/widget/save', { //TODO no lolhost
                 method: 'post',
                 body: JSON.stringify(state.widgets),
                 headers: {
