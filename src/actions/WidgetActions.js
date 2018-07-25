@@ -3,7 +3,7 @@ import {ADD_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      UPDATE_WIDGET} from '../constants/WidgetConstants'
 
 export const findAllWidgets = (dispatch, id) => {
-    fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts also use action?
+    fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts also use action to then go to service
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: FIND_ALL_WIDGETS,
@@ -34,7 +34,7 @@ export const deleteWidget = (dispatch, widget) => {
 export const togglePreview = (dispatch) => {
     dispatch({type: TOGGLE_PREVIEW})
 }
-// TODO combine below, just give new widget
+
 export const updateWidget = (dispatch, widget) => {
     dispatch({ type: UPDATE_WIDGET, widget: widget })
 }

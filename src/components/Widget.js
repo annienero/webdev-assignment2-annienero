@@ -37,7 +37,9 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                     }
                     ref={node => name = node}
                     placeholder="Widget Name" hidden={showPreview}/>
-                {widget.className === 'Heading' && <Heading hidden={showPreview}/>}
+                {widget.className === 'Heading' && <HeadingContainer 
+                    hidden={showPreview}
+                    widget={widget}/>}
                 {widget.className === 'Image' && <ImageContainer 
                     showPreview={showPreview} 
                     widget={widget}/>}
@@ -56,6 +58,7 @@ const stateToPropertiesMapperForWidget = (state) => {
         widget: state.widgets[0]
     }
 }
+
 const dispatcherToPropertiesMapperForWidget = dispatch => ({
     deleteWidget: (widget) => deleteWidget(dispatch, widget),
     moveUp: (widget) => moveUp(dispatch, widget),
@@ -65,35 +68,53 @@ const dispatcherToPropertiesMapperForWidget = dispatch => ({
 
 export const WidgetContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Widget)
 
-const Heading = (props) => (
-    <div>
-        <select hidden={props.showPreview}>
-            <option>Heading 1</option>
-            <option>Heading 2</option>
-            <option>Heading 3</option>
-        </select>
-        <div hidden={props.showPreview}>
-            <input placeholder='Heading Text'></input>
+const Heading = ({ updateWidget, showPreview, widget }) => {
+    let size = widget.size
+    let text = widget.text
+    return(
+        <div>
+           <div hidden={showPreview}>
+            <select value={size}
+                ref={node => size = node}
+                onChange={() => {
+                    widget.size = size.value
+                    updateWidget(widget)}
+                }>
+                <option value={1}>Heading 1</option>
+                <option value={2}>Heading 2</option>
+                <option value={3}>Heading 3</option>
+            </select>
+                <input value={text} placeholder='Heading Text'
+                    ref={node => text = node}
+                    onChange={() => {
+                        widget.text = text.value
+                        updateWidget(widget)}
+                    }/>
+            </div>
+            <div>
+                <h3>Heading Preview</h3>
+                {widget.size === '1' && <h1>{widget.text}</h1>} {/*TODO doesnt show initially */}
+                {widget.size === '2' && <h2>{widget.text}</h2>}
+                {widget.size === '3' && <h3>{widget.text}</h3>}
+            </div>
         </div>
-        <h1 hidden={!props.showPreview}>Heading Preview</h1>
-        {/* TODO dynamically update heading TYPE and text for preview also post on save*/}
-    </div>
-)
+    )
+}
 
+export const HeadingContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Heading)
 
 const Image = ({ updateWidget, showPreview, widget }) => {
     let url
     return(
     <div>
-        {/* TODO dynamically update image for preview also post on save*/}
         <input placeholder="Image URL" value={widget.src} ref={node => url = node}
             onChange={() => {
-                alert(url.value)
                 widget.src = url.value
                 updateWidget(widget)}
             }
             hidden={showPreview} />
-        <image hidden={!showPreview} />
+        <image/>
+        {/* TODO preview */}
     </div>)
 }
 
@@ -104,7 +125,7 @@ const Link = (props) => (
         {/* TODO dynamically update link and text for preview also post on save*/}
         <input placeholder="Link text" hidden={props.showPreview} />
         <input placeholder="Image URL" hidden={props.showPreview} />
-        <image hidden={!props.showPreview} />
+        <image/>
     </div>
 )
 
@@ -119,7 +140,7 @@ const List = (props) => (
             </select>
             <div><textarea placeholder='Enter one list item per line'></textarea></div>
         </div>
-        <div hidden={!props.showPreview}>
+        <div>
             <ul>
                 <li>list preview</li>
                 <li>list preview</li>
@@ -133,6 +154,6 @@ const Paragraph = (props) => (
     <div>
         {/* TODO dynamically update text for preview also post on save*/}
         <textarea placeholder='Paragraph text' hidden={props.showPreview}></textarea>
-        <p hidden={!props.showPreview}>Paragraph text preview</p>
+        <p>Paragraph text preview</p>
     </div>
 )

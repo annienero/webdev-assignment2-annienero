@@ -13,7 +13,7 @@ export default class CourseManager extends Component {
         return (
             <Router>
                 <div>
-                    <h1>Course Manager</h1>
+                    <h1 id="header">Course Manager</h1>
                     <Route path="/course/list" component={CourseList}></Route>
                     <Route path="/course/:courseId/edit" component={CourseEditor}></Route>
                     <Route path="/course/:courseId/module/:moduleId/"component={ModuleEditor}/>

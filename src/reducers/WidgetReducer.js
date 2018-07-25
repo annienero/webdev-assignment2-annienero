@@ -21,7 +21,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: [
                     ...state.widgets,
                     {text: 'New Widget Text', id: autoIncrement++, className: 'Heading', 
-                        name: 'New Widget', widgetOrder: state.widgets.length, src: ''}
+                        name: 'New Widget', widgetOrder: state.widgets.length, src: '', size: '1'}
                 ]
             }
         case DELETE_WIDGET:
@@ -56,7 +56,6 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                     if (widget.id === action.widget.id) {
                         widget = action.widget
                     }
-                    alert(widget.src)
                     return true;
                 })
             }
