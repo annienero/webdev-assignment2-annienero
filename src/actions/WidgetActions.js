@@ -1,10 +1,9 @@
 import {ADD_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
-     MOVE_UP, MOVE_DOWN, DELETE_WIDGET, TOGGLE_PREVIEW,
-     SELECT_WIDGET_TYPE, UPDATE_WIDGET_NAME, UPDATE_IMAGE_URL}
-      from '../constants/WidgetConstants'
+     MOVE_UP, MOVE_DOWN, DELETE_WIDGET, TOGGLE_PREVIEW ,
+     UPDATE_WIDGET} from '../constants/WidgetConstants'
 
 export const findAllWidgets = (dispatch, id) => {
-    fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts
+    fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts also use action?
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: FIND_ALL_WIDGETS,
@@ -35,17 +34,9 @@ export const deleteWidget = (dispatch, widget) => {
 export const togglePreview = (dispatch) => {
     dispatch({type: TOGGLE_PREVIEW})
 }
-
-export const selectWidgetType = (dispatch, id, selectElement) => {
-    dispatch({ type: SELECT_WIDGET_TYPE, id: id, className: selectElement })
+// TODO combine below, just give new widget
+export const updateWidget = (dispatch, widget) => {
+    dispatch({ type: UPDATE_WIDGET, widget: widget })
 }
 
-
-export const updateWidgetName = (dispatch, id, name) => {
-    dispatch({ type: UPDATE_WIDGET_NAME, id: id, name: name })
-}
-
-export const updateImageURL = (dispatch, id, src) => {
-    dispatch({ type: UPDATE_IMAGE_URL, id: id, src: src })
-}
    

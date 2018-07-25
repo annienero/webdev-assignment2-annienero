@@ -1,8 +1,8 @@
 import React from 'react';
-import { deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType, updateImageURL } from '../actions/WidgetActions'
+import { deleteWidget, moveDown, moveUp, updateWidget } from '../actions/WidgetActions'
 import { connect } from 'react-redux';
 
-const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType }) => {
+const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidget }) => {
     let selectElement
     let name = widget.name
     return (
@@ -10,7 +10,10 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
             <div>
                 <text>{widget.className} Widget</text>
                 <select defaultValue={widget.className} hidden={showPreview}
-                    onChange={() => selectWidgetType(widget.id, selectElement.value)}
+                    onChange={() => {
+                        widget.className = selectElement.value
+                        updateWidget(widget)}
+                    }
                     ref={node => selectElement = node}>
                     <option>Heading</option>
                     <option>Image</option>
@@ -28,16 +31,19 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
             </div>
             <div>
                 <input type="text" value={name}
-                    onChange={() => updateWidgetName(widget.id, name.value)}
+                    onChange={() => {
+                        widget.name = name.value
+                        updateWidget(widget)}
+                    }
                     ref={node => name = node}
                     placeholder="Widget Name" hidden={showPreview}/>
-                {widget.className === 'Heading' && <Heading/>}
+                {widget.className === 'Heading' && <Heading hidden={showPreview}/>}
                 {widget.className === 'Image' && <ImageContainer 
                     showPreview={showPreview} 
-                    widgetId={widget.id}/>}
-                {widget.className === 'Link' && <Link/>}
-                {widget.className === 'List' && <List/>}
-                {widget.className === 'Paragraph' && <Paragraph/>}
+                    widget={widget}/>}
+                {widget.className === 'Link' && <Link hidden={showPreview}/>}
+                {widget.className === 'List' && <List hidden={showPreview}/>}
+                {widget.className === 'Paragraph' && <Paragraph hidden={showPreview}/>}
             </div>
         </li>
     )
@@ -51,12 +57,10 @@ const stateToPropertiesMapperForWidget = (state) => {
     }
 }
 const dispatcherToPropertiesMapperForWidget = dispatch => ({
-    selectWidgetType: (id, selectElement) => selectWidgetType(dispatch, id, selectElement),
     deleteWidget: (widget) => deleteWidget(dispatch, widget),
     moveUp: (widget) => moveUp(dispatch, widget),
     moveDown: (widget) => moveDown(dispatch, widget),
-    updateWidgetName: (id, name) => updateWidgetName(dispatch, id, name),
-    updateImageURL: (id, url) => updateImageURL(dispatch, id, url)
+    updateWidget: (widget) => updateWidget(dispatch, widget)
 })
 
 export const WidgetContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Widget)
@@ -77,13 +81,17 @@ const Heading = (props) => (
 )
 
 
-const Image = ({ updateImageURL, showPreview, widgetId }) => {
+const Image = ({ updateWidget, showPreview, widget }) => {
     let url
     return(
     <div>
         {/* TODO dynamically update image for preview also post on save*/}
-        <input placeholder="Image URL" ref={node => url = node}
-            onChange={() => updateImageURL(widgetId, url.value)}
+        <input placeholder="Image URL" value={widget.src} ref={node => url = node}
+            onChange={() => {
+                alert(url.value)
+                widget.src = url.value
+                updateWidget(widget)}
+            }
             hidden={showPreview} />
         <image hidden={!showPreview} />
     </div>)

@@ -1,6 +1,5 @@
 import {ADD_WIDGET, DELETE_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
-     SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW, UPDATE_WIDGET_NAME,
-     UPDATE_IMAGE_URL} 
+     MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW, UPDATE_WIDGET} 
      from '../constants/WidgetConstants'
 
 let autoIncrement = 0
@@ -8,26 +7,6 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
     let index
     let newState
     switch(action.type) {
-        case UPDATE_WIDGET_NAME:
-            newState = {
-                widgets: state.widgets.filter((widget) => {
-                    if (widget.id === action.id) {
-                        widget.name = action.name
-                    }
-                    return true;
-                })
-            }
-            return JSON.parse(JSON.stringify(newState))
-        case SELECT_WIDGET_TYPE:
-            newState = {
-                widgets: state.widgets.filter((widget) => {
-                    if (widget.id === action.id) {
-                        widget.className = action.className
-                    }
-                    return true;
-                })
-            }
-            return JSON.parse(JSON.stringify(newState))
         case SAVE_WIDGETS:
             fetch('http://localhost:8080/api/lesson/' + action.id + '/widget/save', { //TODO no lolhost
                 method: 'post',
@@ -42,7 +21,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: [
                     ...state.widgets,
                     {text: 'New Widget Text', id: autoIncrement++, className: 'Heading', 
-                        name: 'New Widget', widgetOrder: state.widgets.length}
+                        name: 'New Widget', widgetOrder: state.widgets.length, src: ''}
                 ]
             }
         case DELETE_WIDGET:
@@ -71,15 +50,17 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             newState = JSON.parse(JSON.stringify(state))
             newState.showPreview = !state.showPreview
             return newState
-        case UPDATE_IMAGE_URL:
-        newState = {
-            widgets: state.widgets.filter((widget) => {
-                if (widget.id === action.id) {
-                    widget.src = action.src
-                }
-                return true;
-            })
-        }
+        case UPDATE_WIDGET:
+            newState = {
+                widgets: state.widgets.filter((widget) => {
+                    if (widget.id === action.widget.id) {
+                        widget = action.widget
+                    }
+                    alert(widget.src)
+                    return true;
+                })
+            }
+            return JSON.parse(JSON.stringify(newState))
         default: 
             return state
     }
