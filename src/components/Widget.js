@@ -1,7 +1,5 @@
 import React from 'react';
-import { deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType } from '../actions/WidgetActions'
-
-
+import { deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType, updateImageURL } from '../actions/WidgetActions'
 import { connect } from 'react-redux';
 
 const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidgetName, selectWidgetType }) => {
@@ -33,11 +31,13 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                     onChange={() => updateWidgetName(widget.id, name.value)}
                     ref={node => name = node}
                     placeholder="Widget Name" hidden={showPreview}/>
-                {widget.className === 'Heading' && <Heading showPreview={showPreview} />}
-                {widget.className === 'Image' && <Image showPreview={showPreview} />}
-                {widget.className === 'Link' && <Link showPreview={showPreview} />}
-                {widget.className === 'List' && <List showPreview={showPreview} />}
-                {widget.className === 'Paragraph' && <Paragraph showPreview={showPreview} />}
+                {widget.className === 'Heading' && <Heading/>}
+                {widget.className === 'Image' && <ImageContainer 
+                    showPreview={showPreview} 
+                    widgetId={widget.id}/>}
+                {widget.className === 'Link' && <Link/>}
+                {widget.className === 'List' && <List/>}
+                {widget.className === 'Paragraph' && <Paragraph/>}
             </div>
         </li>
     )
@@ -46,7 +46,8 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
 const stateToPropertiesMapperForWidget = (state) => {
     return {
         showPreview: state.showPreview,
-        len: state.widgets.length
+        len: state.widgets.length,
+        widget: state.widgets[0]
     }
 }
 const dispatcherToPropertiesMapperForWidget = dispatch => ({
@@ -54,11 +55,11 @@ const dispatcherToPropertiesMapperForWidget = dispatch => ({
     deleteWidget: (widget) => deleteWidget(dispatch, widget),
     moveUp: (widget) => moveUp(dispatch, widget),
     moveDown: (widget) => moveDown(dispatch, widget),
-    updateWidgetName: (id, name) => updateWidgetName(dispatch, id, name)
+    updateWidgetName: (id, name) => updateWidgetName(dispatch, id, name),
+    updateImageURL: (id, url) => updateImageURL(dispatch, id, url)
 })
 
 export const WidgetContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Widget)
-
 
 const Heading = (props) => (
     <div>
@@ -76,14 +77,19 @@ const Heading = (props) => (
 )
 
 
-const Image = (props) => (
+const Image = ({ updateImageURL, showPreview, widgetId }) => {
+    let url
+    return(
     <div>
         {/* TODO dynamically update image for preview also post on save*/}
-        <input placeholder="Image URL" hidden={props.showPreview} />
-        <image hidden={!props.showPreview} />
-    </div>
-)
+        <input placeholder="Image URL" ref={node => url = node}
+            onChange={() => updateImageURL(widgetId, url.value)}
+            hidden={showPreview} />
+        <image hidden={!showPreview} />
+    </div>)
+}
 
+export const ImageContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Image)
 
 const Link = (props) => (
     <div>

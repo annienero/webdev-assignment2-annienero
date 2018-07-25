@@ -1,5 +1,6 @@
 import {ADD_WIDGET, DELETE_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
-     SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW, UPDATE_WIDGET_NAME} 
+     SELECT_WIDGET_TYPE, MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW, UPDATE_WIDGET_NAME,
+     UPDATE_IMAGE_URL} 
      from '../constants/WidgetConstants'
 
 let autoIncrement = 0
@@ -40,8 +41,8 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             return {
                 widgets: [
                     ...state.widgets,
-                    {text: 'New Widget', id: autoIncrement++, className: 'Heading', 
-                        name: 'New Widget' + state.widgets.length, widgetOrder: state.widgets.length}
+                    {text: 'New Widget Text', id: autoIncrement++, className: 'Heading', 
+                        name: 'New Widget', widgetOrder: state.widgets.length}
                 ]
             }
         case DELETE_WIDGET:
@@ -70,6 +71,15 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             newState = JSON.parse(JSON.stringify(state))
             newState.showPreview = !state.showPreview
             return newState
+        case UPDATE_IMAGE_URL:
+        newState = {
+            widgets: state.widgets.filter((widget) => {
+                if (widget.id === action.id) {
+                    widget.src = action.src
+                }
+                return true;
+            })
+        }
         default: 
             return state
     }

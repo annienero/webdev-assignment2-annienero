@@ -7,4 +7,6 @@ export const MOVE_UP = 'MOVE_UP'
 export const MOVE_DOWN = 'MOVE_DOWN'
 export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW'
 export const UPDATE_WIDGET_NAME = 'UPDATE_WIDGET_NAME'
+export const UPDATE_IMAGE_URL = 'UPDATE_IMAGE_URL'
+
 

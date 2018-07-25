@@ -1,6 +1,7 @@
 import {ADD_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      MOVE_UP, MOVE_DOWN, DELETE_WIDGET, TOGGLE_PREVIEW,
-     SELECT_WIDGET_TYPE, UPDATE_WIDGET_NAME} from '../constants/WidgetConstants'
+     SELECT_WIDGET_TYPE, UPDATE_WIDGET_NAME, UPDATE_IMAGE_URL}
+      from '../constants/WidgetConstants'
 
 export const findAllWidgets = (dispatch, id) => {
     fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts
@@ -42,5 +43,9 @@ export const selectWidgetType = (dispatch, id, selectElement) => {
 
 export const updateWidgetName = (dispatch, id, name) => {
     dispatch({ type: UPDATE_WIDGET_NAME, id: id, name: name })
+}
+
+export const updateImageURL = (dispatch, id, src) => {
+    dispatch({ type: UPDATE_IMAGE_URL, id: id, src: src })
 }
    
