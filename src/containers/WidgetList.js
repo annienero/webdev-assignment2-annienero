@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { WidgetContainer } from '../components/Widget'
-import { findAllWidgets, addWidget, save, moveDown, moveUp, togglePreview } from '../actions/WidgetActions'
+import { findAllWidgets, addWidget, save, togglePreview } from '../actions/WidgetActions'
 import { connect } from 'react-redux';
 
 

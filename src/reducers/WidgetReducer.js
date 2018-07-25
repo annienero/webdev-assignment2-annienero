@@ -8,7 +8,7 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
     let newState
     switch(action.type) {
         case SAVE_WIDGETS:
-            fetch('http://localhost:8080/api/lesson/' + action.id + '/widget/save', { //TODO no lolhost
+            fetch('http://localhost:8080/api/lesson/' + action.id + '/widget/save', { //TODO no lolhost, moveee
                 method: 'post',
                 body: JSON.stringify(state.widgets),
                 headers: {

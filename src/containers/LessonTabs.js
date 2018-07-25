@@ -113,8 +113,8 @@ export default class LessonTabs extends Component {
         var i = 0;
         let lessons = this.state.lessons.map((lesson) => {
             i++;
-            return <Tab eventKey={i} title={lesson.title}>
-                <LessonTab
+            return <Tab key={i} eventKey={i} title={lesson.title}>
+                <LessonTab id={i}
                     lesson={lesson}
                     delete={this.deleteLesson}
                     edit={this.editLesson} />
@@ -122,7 +122,7 @@ export default class LessonTabs extends Component {
         });
 
         return (
-            <Tabs defaultActiveKey={1}>{lessons}</Tabs>
+            <Tabs id={0} defaultActiveKey={1}>{lessons}</Tabs>
         )
     }
 
@@ -130,10 +130,10 @@ export default class LessonTabs extends Component {
         return (
             <div>
                 <div className="form-check-inline" id="addElement">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="New Lesson" value={this.state.lesson.title} onChange={this.setLessonTitle} />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"
+                    <div className="input-group">
+                        <input type="text" className="form-control" placeholder="New Lesson" value={this.state.lesson.title} onChange={this.setLessonTitle} />
+                        <span className="input-group-btn">
+                            <button className="btn btn-primary" type="button"
                             onClick={this.onAddUpdateClicked}>{this.state.buttonText}</button>
                         </span>
                     </div>

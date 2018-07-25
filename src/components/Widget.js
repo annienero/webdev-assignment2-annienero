@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidget }) => {
     let selectElement
-    let name = widget.name
+    let name
     return (
         <li>
             <div>
-                <text>{widget.className} Widget</text>
-                <select defaultValue={widget.className} hidden={showPreview}
+                <h2>{widget.className} Widget</h2>
+                <select value={widget.className} hidden={showPreview}
                     onChange={() => {
                         widget.className = selectElement.value
                         updateWidget(widget)}
@@ -30,7 +30,7 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                     onClick={() => moveDown(widget)}>Move Down</button>
             </div>
             <div>
-                <input type="text" value={name}
+                <input type="text" value={widget.name}
                     onChange={() => {
                         widget.name = name.value
                         updateWidget(widget)}
@@ -70,12 +70,12 @@ const dispatcherToPropertiesMapperForWidget = dispatch => ({
 export const WidgetContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Widget)
 
 const Heading = ({ updateWidget, showPreview, widget }) => {
-    let size = widget.size
-    let text = widget.text
+    let size
+    let text
     return(
         <div>
            <div hidden={showPreview}>
-            <select value={size}
+            <select value={widget.size}
                 ref={node => size = node}
                 onChange={() => {
                     widget.size = size.value
@@ -85,7 +85,7 @@ const Heading = ({ updateWidget, showPreview, widget }) => {
                 <option value={2}>Heading 2</option>
                 <option value={3}>Heading 3</option>
             </select>
-                <input value={text} placeholder='Heading Text'
+                <input value={widget.text} placeholder='Heading Text'
                     ref={node => text = node}
                     onChange={() => {
                         widget.text = text.value
@@ -114,7 +114,6 @@ const Image = ({ updateWidget, showPreview, widget }) => {
                 updateWidget(widget)}
             }
             hidden={showPreview} />
-        <image/>
         {/* TODO preview */}
     </div>)
 }
@@ -126,7 +125,7 @@ const List = ({ updateWidget, showPreview, widget }) => {
     let text
     return (
         <div>
-            {/* TODO preview only shows after i update listtype*/}
+            {/* TODO preview only shows after i update listtype also not sure if listtype work in db*/}
             <div hidden={showPreview}>
                 <select value={widget.listType}
                         ref={node => selectElement = node}
@@ -169,7 +168,8 @@ const List = ({ updateWidget, showPreview, widget }) => {
 
 export const ListContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(List)
 
-const Paragraph = ({ updateWidget, showPreview, widget }) => { {/* TODO put preview in way cuter text box or something rn just goes off page*/}
+const Paragraph = ({ updateWidget, showPreview, widget }) => {
+    // TODO put preview in way cuter text box or something rn just goes off page
     let text
     return (
         <div>
