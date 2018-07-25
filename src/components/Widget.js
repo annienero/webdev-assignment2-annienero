@@ -1,6 +1,11 @@
 import React from 'react';
 import { deleteWidget, moveDown, moveUp, updateWidget } from '../actions/WidgetActions'
 import { connect } from 'react-redux';
+import { LinkContainer } from './LinkWidget'
+import { ParagraphContainer } from './ParagraphWidget'
+import { ListContainer } from './ListWidget'
+import { HeadingContainer } from './HeadingWidget'
+import { ImageContainer } from './ImageWidget'
 
 const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidget }) => {
     let selectElement
@@ -52,7 +57,7 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
     )
 }
 
-const stateToPropertiesMapperForWidget = (state) => {
+export const stateToPropertiesMapperForWidget = (state) => {
     return {
         showPreview: state.showPreview,
         len: state.widgets.length,
@@ -60,7 +65,7 @@ const stateToPropertiesMapperForWidget = (state) => {
     }
 }
 
-const dispatcherToPropertiesMapperForWidget = dispatch => ({
+export const dispatcherToPropertiesMapperForWidget = dispatch => ({
     deleteWidget: (widget) => deleteWidget(dispatch, widget),
     moveUp: (widget) => moveUp(dispatch, widget),
     moveDown: (widget) => moveDown(dispatch, widget),
@@ -68,148 +73,3 @@ const dispatcherToPropertiesMapperForWidget = dispatch => ({
 })
 
 export const WidgetContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Widget)
-
-const Heading = ({ updateWidget, showPreview, widget }) => {
-    let size
-    let text
-    return(
-        <div>
-           <div hidden={showPreview}>
-            <select value={widget.size}
-                ref={node => size = node}
-                onChange={() => {
-                    widget.size = size.value
-                    updateWidget(widget)}
-                }>
-                <option value={1}>Heading 1</option>
-                <option value={2}>Heading 2</option>
-                <option value={3}>Heading 3</option>
-            </select>
-                <input value={widget.text} placeholder='Heading Text'
-                    ref={node => text = node}
-                    onChange={() => {
-                        widget.text = text.value
-                        updateWidget(widget)}
-                    }/>
-            </div>
-            <div>
-                <h3>Heading Preview</h3>
-                {widget.size === '1' && <h1>{widget.text}</h1>} {/*TODO doesnt show initially */}
-                {widget.size === '2' && <h2>{widget.text}</h2>}
-                {widget.size === '3' && <h3>{widget.text}</h3>}
-            </div>
-        </div>
-    )
-}
-
-export const HeadingContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Heading)
-
-const Image = ({ updateWidget, showPreview, widget }) => {
-    let url
-    return(
-    <div>
-        <input placeholder="Image URL" value={widget.src} ref={node => url = node}
-            onChange={() => {
-                widget.src = url.value
-                updateWidget(widget)}
-            }
-            hidden={showPreview} />
-        {/* TODO preview */}
-    </div>)
-}
-
-export const ImageContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Image)
-
-const List = ({ updateWidget, showPreview, widget }) => {
-    let selectElement
-    let text
-    return (
-        <div>
-            {/* TODO preview only shows after i update listtype also not sure if listtype work in db*/}
-            <div hidden={showPreview}>
-                <select value={widget.listType}
-                        ref={node => selectElement = node}
-                        onChange={() => {
-                            widget.listType = selectElement.value
-                            updateWidget(widget)}
-                    }>
-                    <option value='ORDERED'>Ordered</option>
-                    <option value='UNORDERED'>Unordered</option>
-                </select>
-                <div><textarea value={widget.text}
-                    placeholder='Enter one list item per line'
-                    ref={node => text = node}
-                    onChange={() => {
-                        widget.text = text.value
-                        updateWidget(widget)}
-                }></textarea></div>
-            </div>
-            <div>
-                {widget.listType === 'UNORDERED' &&
-                    <ul>
-                        {widget.text.split('\n').map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ul>
-            
-                }
-                {widget.listType === 'ORDERED' &&
-                    <ol>
-                        {widget.text.split('\n').map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ol>
-            
-                }
-            </div>
-        </div>
-    )
-}
-
-export const ListContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(List)
-
-const Paragraph = ({ updateWidget, showPreview, widget }) => {
-    // TODO put preview in way cuter text box or something rn just goes off page
-    let text
-    return (
-        <div>
-            <textarea value={widget.text} 
-                placeholder='Paragraph text' 
-                hidden={showPreview}
-                ref={node => text = node}
-                onChange={() => {
-                    widget.text = text.value
-                    updateWidget(widget)}}></textarea>
-            <p>{widget.text}</p>
-        </div>
-    )
-}
-
-export const ParagraphContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Paragraph)
-
-const Link = ({ updateWidget, showPreview, widget }) => {
-    let href
-    let text
-    return (
-        <div>
-            <input placeholder="Link text"
-                value={widget.text}
-                ref={node => text = node}
-                onChange={() => {
-                    widget.text = text.value
-                    updateWidget(widget)}}
-                hidden={showPreview} />
-            <input placeholder="Image URL" 
-                value={widget.href}
-                ref={node => href = node}
-                onChange={() => {
-                    widget.href = href.value
-                    updateWidget(widget)}}
-                hidden={showPreview} />
-            <h3>Link Preview</h3>
-            <a href={widget.url}>{widget.text}</a> {/* TODO link no click*/}
-        </div>
-    )
-}
-
-export const LinkContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Link)

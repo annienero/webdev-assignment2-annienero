@@ -124,12 +124,12 @@ export default class ModuleList extends Component {
                 <div className="container">
                     <div className="col-sm-4 col-md-4 col-lg-4">
                         <ul className="list-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="addElement"
+                            <div className="input-group">
+                                <input type="text" className="form-control" id="addElement"
                                     value={this.state.module.title}
                                     onChange={this.setModuleTitle} placeholder="New Module"/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button"
+                                <span className="input-group-btn">
+                                    <button className="btn btn-primary" type="button"
                                     onClick={this.onAddUpdateClicked}>
                                         {this.state.buttonText}</button>
                                 </span>
