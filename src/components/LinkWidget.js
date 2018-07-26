@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { stateToPropertiesMapperForWidget } from './Widget'
 import {updateWidget } from '../actions/WidgetActions'
 
+
 const Link = ({ updateWidget, showPreview, widget }) => {
     let href
     let text
@@ -23,7 +24,7 @@ const Link = ({ updateWidget, showPreview, widget }) => {
                     updateWidget(widget)}}
                 hidden={showPreview} />
             <h3>Link Preview</h3>
-            <a href={widget.url}>{widget.text}</a> {/* TODO link no click*/}
+            <a href={widget.href}>{widget.text}</a>
         </div>
     )
 }

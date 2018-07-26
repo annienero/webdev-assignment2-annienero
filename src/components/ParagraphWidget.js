@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { stateToPropertiesMapperForWidget } from './Widget'
 import {updateWidget } from '../actions/WidgetActions'
+import './WidgetStyle.css'
 
 const Paragraph = ({ updateWidget, showPreview, widget }) => {
-    // TODO put preview in way cuter text box or something rn just goes off page
     let text
     return (
         <div>
@@ -15,7 +15,7 @@ const Paragraph = ({ updateWidget, showPreview, widget }) => {
                 onChange={() => {
                     widget.text = text.value
                     updateWidget(widget)}}></textarea>
-            <p>{widget.text}</p>
+            <div><p>{widget.text}</p></div>
         </div>
     )
 }
