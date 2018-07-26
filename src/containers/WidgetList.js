@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { WidgetContainer } from '../components/Widget'
 import { findAllWidgets, addWidget, save, togglePreview } from '../actions/WidgetActions'
 import { connect } from 'react-redux';
+import './WidgetListStyle.css'
 
 
 class WidgetList extends Component {
@@ -12,16 +13,16 @@ class WidgetList extends Component {
     render() {
         let widgets = this.props.widgets.sort((widget1, widget2) => widget1.widgetOrder > widget2.widgetOrder)
         return (
-            <div>
+            <div id="widgetlist">
                 <h1>Widget List</h1>
-                <button className="btn btn-primary" onClick={() => this.props.save(this.props.lessonId)}>Save</button>
-                <label>
-                    <input
-                        type="checkbox"
-                        onChange={this.props.togglePreview}
-                        />Preview
-                </label>
-                <ul>
+                <button id="checkbox" className="btn btn-primary" onClick={() => this.props.save(this.props.lessonId)}>Save</button>
+                    <label>
+                        <input
+                            type="checkbox"
+                            onChange={this.props.togglePreview}
+                            /> Preview
+                    </label>
+                <ul className="list-unstyled">
                     {widgets.map(widget => (
                         <WidgetContainer key={widget.id} 
                             widget={widget}/>

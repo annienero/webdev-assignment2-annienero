@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { stateToPropertiesMapperForWidget } from './Widget'
 import {updateWidget } from '../actions/WidgetActions'
+import './WidgetStyle.css'
 
 const List = ({ updateWidget, showPreview, widget }) => {
     let selectElement

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { stateToPropertiesMapperForWidget } from './Widget'
 import {updateWidget } from '../actions/WidgetActions'
+import './WidgetStyle.css'
 
 const Heading = ({ updateWidget, showPreview, widget }) => {
     let size
@@ -9,7 +10,7 @@ const Heading = ({ updateWidget, showPreview, widget }) => {
     return(
         <div>
            <div hidden={showPreview}>
-            <select value={widget.size}
+            <select id="dropdown" value={widget.size}
                 ref={node => size = node}
                 onChange={() => {
                     widget.size = size.value
