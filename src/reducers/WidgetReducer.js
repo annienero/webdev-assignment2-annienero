@@ -25,10 +25,16 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 ]
             }
         case DELETE_WIDGET:
+            let newWidgets = []
+            let order = 0
+            state.widgets.forEach(widget => {
+                if (widget.id !== action.id) {
+                    widget.widgetOrder = order++
+                    newWidgets.push(widget)
+                }
+            })
             return {
-                widgets: state.widgets.filter(widget => (
-                    widget.id !== action.id
-                ))
+                widgets: newWidgets
             }
         case FIND_ALL_WIDGETS:
             return {
