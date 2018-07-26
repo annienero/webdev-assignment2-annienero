@@ -1,5 +1,6 @@
 import React from 'react';
-import { stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget } from './Widget'
+import {updateWidget } from '../actions/WidgetActions'
+import { stateToPropertiesMapperForWidget } from './Widget'
 import { connect } from 'react-redux';
 
 const Image = ({ updateWidget, showPreview, widget }) => {
@@ -12,8 +13,12 @@ const Image = ({ updateWidget, showPreview, widget }) => {
                 updateWidget(widget)}
             }
             hidden={showPreview} />
-        {/* TODO preview */}
+        <div><img src={widget.src}/></div>
     </div>)
 }
 
+//TODO why u make me do twice ugh
+export const dispatcherToPropertiesMapperForWidget = dispatch => ({
+    updateWidget: (widget) => updateWidget(dispatch, widget)
+})
 export const ImageContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Image)

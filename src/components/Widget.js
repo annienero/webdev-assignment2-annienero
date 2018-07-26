@@ -60,8 +60,7 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
 export const stateToPropertiesMapperForWidget = (state) => {
     return {
         showPreview: state.showPreview,
-        len: state.widgets.length,
-        widget: state.widgets[0]
+        len: state.widgets.length
     }
 }
 

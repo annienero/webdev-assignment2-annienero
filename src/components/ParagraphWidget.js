@@ -1,6 +1,7 @@
-import React from 'react';
-import { stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget } from './Widget'
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
+import { stateToPropertiesMapperForWidget } from './Widget'
+import {updateWidget } from '../actions/WidgetActions'
 
 const Paragraph = ({ updateWidget, showPreview, widget }) => {
     // TODO put preview in way cuter text box or something rn just goes off page
@@ -19,4 +20,7 @@ const Paragraph = ({ updateWidget, showPreview, widget }) => {
     )
 }
 
+export const dispatcherToPropertiesMapperForWidget = dispatch => ({
+    updateWidget: (widget) => updateWidget(dispatch, widget)
+})
 export const ParagraphContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(Paragraph)

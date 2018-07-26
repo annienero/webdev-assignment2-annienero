@@ -1,6 +1,7 @@
-import React from 'react';
-import { stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget } from './Widget'
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
+import { stateToPropertiesMapperForWidget } from './Widget'
+import {updateWidget } from '../actions/WidgetActions'
 
 const List = ({ updateWidget, showPreview, widget }) => {
     let selectElement
@@ -48,5 +49,7 @@ const List = ({ updateWidget, showPreview, widget }) => {
     )
 }
 
+export const dispatcherToPropertiesMapperForWidget = dispatch => ({
+    updateWidget: (widget) => updateWidget(dispatch, widget)
+})
 export const ListContainer = connect(stateToPropertiesMapperForWidget, dispatcherToPropertiesMapperForWidget)(List)
-
