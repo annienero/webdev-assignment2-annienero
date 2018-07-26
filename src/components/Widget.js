@@ -6,12 +6,13 @@ import { ParagraphContainer } from './ParagraphWidget'
 import { ListContainer } from './ListWidget'
 import { HeadingContainer } from './HeadingWidget'
 import { ImageContainer } from './ImageWidget'
+import './WidgetStyle.css'
 
 const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, updateWidget }) => {
     let selectElement
     let name
     return (
-        <li>
+        <div id="widget">
             <div>
                 <h2>{widget.className} Widget</h2>
                 <select value={widget.className} hidden={showPreview}
@@ -53,7 +54,7 @@ const Widget = ({ widget, showPreview, len, deleteWidget, moveDown, moveUp, upda
                 {widget.className === 'Paragraph' && 
                     <ParagraphContainer widget={widget} showPreview={showPreview}/>}
             </div>
-        </li>
+        </div>
     )
 }
 
