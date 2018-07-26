@@ -13,13 +13,13 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             widgetService.saveWidgets(action.id, state.widgets)
             return state              
         case ADD_WIDGET:
-            return {
-                widgets: [
-                    ...state.widgets,
-                    {id: autoIncrement++, className: 'Heading', listType: 'ORDERED', text: '',
-                        size: 1, name: 'New Widget', widgetOrder: state.widgets.length}
-                ]
-            }
+            newState = Object.assign({}, state);
+            newState.widgets = [
+                ...state.widgets,
+                {id: autoIncrement++, className: 'Heading', listType: 'ORDERED', text: '',
+                    size: 1, name: 'New Widget', widgetOrder: state.widgets.length}
+            ]
+            return newState
         case DELETE_WIDGET:
             let newWidgets = []
             let order = 0
@@ -49,9 +49,8 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
             state.widgets.copyWithin(index, index, index - 1)
             return JSON.parse(JSON.stringify(state))
         case TOGGLE_PREVIEW:
-            newState = JSON.parse(JSON.stringify(state))
-            newState.showPreview = !state.showPreview
-            return newState
+            state.showPreview = !state.showPreview
+            return JSON.parse(JSON.stringify(state))
         case UPDATE_WIDGET:
             newState = {
                 widgets: state.widgets.filter((widget) => {
