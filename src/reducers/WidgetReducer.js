@@ -11,13 +11,13 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
     switch(action.type) {
         case SAVE_WIDGETS:
             widgetService.saveWidgets(action.id, state.widgets)
-            return state //TODO async               
+            return state              
         case ADD_WIDGET:
             return {
                 widgets: [
                     ...state.widgets,
-                    {id: autoIncrement++, className: 'Heading', 
-                        name: 'New Widget', widgetOrder: state.widgets.length}
+                    {id: autoIncrement++, className: 'Heading', listType: 'ORDERED', text: '',
+                        size: 1, name: 'New Widget', widgetOrder: state.widgets.length}
                 ]
             }
         case DELETE_WIDGET:
@@ -33,17 +33,9 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: newWidgets
             }
         case FIND_ALL_WIDGETS:
-        return {
-            widgets: action.widgets
-        }
-            // newWidgets = []
-            // widgetService.findAllWidgetsForLesson(action.id)
-            // .then((widgets) => { 
-            //     newWidgets = widgets
-            // }) 
-            // return {
-            //     widgets: newWidgets
-            // }
+            return {
+                widgets: action.widgets
+            }
         case MOVE_DOWN:
             index = state.widgets.indexOf(action.widget)
             state.widgets[index].widgetOrder++

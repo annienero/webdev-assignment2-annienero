@@ -1,15 +1,17 @@
 import {ADD_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      MOVE_UP, MOVE_DOWN, DELETE_WIDGET, TOGGLE_PREVIEW ,
      UPDATE_WIDGET} from '../constants/WidgetConstants'
+import WidgetServiceClient from '../services/WidgetServiceClient'
 
 export const findAllWidgets = (dispatch, id) => {
-    //dispatch({type: FIND_ALL_WIDGETS, id: id})
-    fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts also use action to then go to service
-        .then(response => (response.json()))
-        .then(widgets => dispatch({
+    let widgetService = WidgetServiceClient.instance
+    widgetService.findAllWidgetsForLesson(id)
+    .then(widgets => {
+        dispatch({
             type: FIND_ALL_WIDGETS,
             widgets: widgets
-        }))
+        })
+    })
 }
 
 export const addWidget = dispatch => {
