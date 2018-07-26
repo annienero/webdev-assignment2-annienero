@@ -5,7 +5,7 @@ import {updateWidget } from '../actions/WidgetActions'
 
 const Heading = ({ updateWidget, showPreview, widget }) => {
     let size
-    let text
+    let headingText
     return(
         <div>
            <div hidden={showPreview}>
@@ -20,17 +20,17 @@ const Heading = ({ updateWidget, showPreview, widget }) => {
                 <option value={3}>Heading 3</option>
             </select>
                 <input value={widget.text} placeholder='Heading Text'
-                    ref={node => text = node}
+                    ref={node => headingText = node}
                     onChange={() => {
-                        widget.text = text.value
+                        widget.text = headingText.value
                         updateWidget(widget)}
                     }/>
             </div>
             <div>
                 <h3>Heading Preview</h3>
-                {widget.size === '1' && <h1>{widget.text}</h1>} {/*TODO doesnt show initially */}
-                {widget.size === '2' && <h2>{widget.text}</h2>}
-                {widget.size === '3' && <h3>{widget.text}</h3>}
+                {widget.size === 1 && <h1>{widget.text}</h1>}
+                {widget.size === 2 && <h2>{widget.text}</h2>}
+                {widget.size === 3 && <h3>{widget.text}</h3>}
             </div>
         </div>
     )

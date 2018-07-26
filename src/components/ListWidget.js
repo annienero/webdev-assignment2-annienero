@@ -8,7 +8,6 @@ const List = ({ updateWidget, showPreview, widget }) => {
     let text
     return (
         <div>
-            {/* TODO preview only shows after i update listtype also not sure if listtype work in db*/}
             <div hidden={showPreview}>
                 <select value={widget.listType}
                         ref={node => selectElement = node}

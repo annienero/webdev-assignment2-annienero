@@ -17,7 +17,6 @@ const Image = ({ updateWidget, showPreview, widget }) => {
     </div>)
 }
 
-//TODO why u make me do twice ugh
 export const dispatcherToPropertiesMapperForWidget = dispatch => ({
     updateWidget: (widget) => updateWidget(dispatch, widget)
 })
