@@ -3,6 +3,7 @@ import {ADD_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      UPDATE_WIDGET} from '../constants/WidgetConstants'
 
 export const findAllWidgets = (dispatch, id) => {
+    //dispatch({type: FIND_ALL_WIDGETS, id: id})
     fetch('http://localhost:8080/api/lesson/' + id + '/widget') //TODO no localhosts also use action to then go to service
         .then(response => (response.json()))
         .then(widgets => dispatch({

@@ -1,21 +1,17 @@
 import {ADD_WIDGET, DELETE_WIDGET, FIND_ALL_WIDGETS, SAVE_WIDGETS,
      MOVE_DOWN, MOVE_UP, TOGGLE_PREVIEW, UPDATE_WIDGET} 
      from '../constants/WidgetConstants'
+import WidgetServiceClient from '../services/WidgetServiceClient'
 
 let autoIncrement = 0
 export const WidgetReducer = (state = {widgets: [], showPreview: false}, action) => {
+    let widgetService = WidgetServiceClient.instance
     let index
     let newState
     switch(action.type) {
         case SAVE_WIDGETS:
-            fetch('http://localhost:8080/api/lesson/' + action.id + '/widget/save', { //TODO no lolhost, moveee
-                method: 'post',
-                body: JSON.stringify(state.widgets),
-                headers: {
-                    'content-type': 'application/json'
-                }
-            }).then
-            return state
+            widgetService.saveWidgets(action.id, state.widgets)
+            return state //TODO async               
         case ADD_WIDGET:
             return {
                 widgets: [
@@ -37,9 +33,17 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: newWidgets
             }
         case FIND_ALL_WIDGETS:
-            return {
-                widgets: action.widgets
-            }
+        return {
+            widgets: action.widgets
+        }
+            // newWidgets = []
+            // widgetService.findAllWidgetsForLesson(action.id)
+            // .then((widgets) => { 
+            //     newWidgets = widgets
+            // }) 
+            // return {
+            //     widgets: newWidgets
+            // }
         case MOVE_DOWN:
             index = state.widgets.indexOf(action.widget)
             state.widgets[index].widgetOrder++
