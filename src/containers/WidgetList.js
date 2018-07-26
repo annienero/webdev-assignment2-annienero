@@ -14,7 +14,7 @@ class WidgetList extends Component {
         return (
             <div>
                 <h1>Widget List</h1>
-                <button onClick={() => this.props.save(this.props.lessonId)}>Save</button>
+                <button className="btn btn-primary" onClick={() => this.props.save(this.props.lessonId)}>Save</button>
                 <label>
                     <input
                         type="checkbox"
@@ -27,7 +27,7 @@ class WidgetList extends Component {
                             widget={widget}/>
                     ))}
                 </ul>
-                <button onClick={this.props.addWidget}>Add Widget</button>
+                <button className="btn btn-primary" onClick={this.props.addWidget}>Add Widget</button>
             </div>
         )
     }
