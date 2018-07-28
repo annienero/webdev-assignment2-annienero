@@ -8,7 +8,8 @@ const Paragraph = ({ updateWidget, showPreview, widget }) => {
     let text
     return (
         <div>
-            <textarea value={widget.text} 
+            <label for="paragraph">Text</label>
+            <textarea id="paragraph" className="form-control" value={widget.text} 
                 placeholder='Paragraph text' 
                 hidden={showPreview}
                 ref={node => text = node}
