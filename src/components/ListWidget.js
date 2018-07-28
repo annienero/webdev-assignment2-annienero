@@ -10,7 +10,8 @@ const List = ({ updateWidget, showPreview, widget }) => {
     return (
         <div>
             <div hidden={showPreview}>
-                <select value={widget.listType}
+                <label for="listType">List Type</label>
+                <select id="listType" value={widget.listType}
                         ref={node => selectElement = node}
                         onChange={() => {
                             widget.listType = selectElement.value
@@ -19,13 +20,16 @@ const List = ({ updateWidget, showPreview, widget }) => {
                     <option value='ORDERED'>Ordered</option>
                     <option value='UNORDERED'>Unordered</option>
                 </select>
-                <div><textarea value={widget.text}
+                <div>
+                    <label for="list">List Items</label>
+                    <textarea id="list" className="form-control" value={widget.text}
                     placeholder='Enter one list item per line'
                     ref={node => text = node}
                     onChange={() => {
                         widget.text = text.value
                         updateWidget(widget)}
-                }></textarea></div>
+                }></textarea>
+            </div>
             </div>
             <div>
                 {widget.listType === 'UNORDERED' &&

@@ -32,3 +32,12 @@ p {
     width: 200px;
     margin-bottom: 10px;
 }
+
+#listType {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#list {
+    margin-bottom: 10px;
+}
