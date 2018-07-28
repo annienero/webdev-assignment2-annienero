@@ -10,7 +10,7 @@ const Heading = ({ updateWidget, showPreview, widget }) => {
     return(
         <div>
            <div hidden={showPreview}>
-            <select id="dropdown" value={widget.size}
+            <select value={widget.size}
                 ref={node => size = node}
                 onChange={() => {
                     widget.size = size.value

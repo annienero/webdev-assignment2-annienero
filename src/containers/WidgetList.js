@@ -15,9 +15,12 @@ class WidgetList extends Component {
         return (
             <div id="widgetlist">
                 <h1>Widget List</h1>
-                <button id="checkbox" className="btn btn-primary" onClick={() => this.props.save(this.props.lessonId)}>Save</button>
+                <button className="btn btn-primary" 
+                    id="save"
+                    onClick={() => this.props.save(this.props.lessonId)}
+                    >Save</button>
                     <label>
-                        <input
+                        <input id="checkbox"
                             type="checkbox"
                             onChange={this.props.togglePreview}
                             /> Preview
