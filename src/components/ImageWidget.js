@@ -7,7 +7,9 @@ const Image = ({ updateWidget, showPreview, widget }) => {
     let url
     return(
     <div>
-        <input placeholder="Image URL" value={widget.src} ref={node => url = node}
+        <label for="name">Image URL</label>
+        <input id="name" className="form-control" placeholder="Image URL" 
+            value={widget.src} ref={node => url = node}
             onChange={() => {
                 widget.src = url.value
                 updateWidget(widget)}
