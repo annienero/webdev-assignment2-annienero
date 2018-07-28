@@ -10,7 +10,8 @@ const Heading = ({ updateWidget, showPreview, widget }) => {
     return(
         <div>
            <div hidden={showPreview}>
-            <select value={widget.size}
+           <label for="select">Heading Size</label>
+            <select id="select" value={widget.size}
                 ref={node => size = node}
                 onChange={() => {
                     widget.size = size.value
@@ -20,15 +21,17 @@ const Heading = ({ updateWidget, showPreview, widget }) => {
                 <option value={2}>Heading 2</option>
                 <option value={3}>Heading 3</option>
             </select>
-                <input value={widget.text} placeholder='Heading Text'
+                <div>
+                <label for="name">Heading Text</label>
+                <input id="name" className="form-control"
+                    value={widget.text} placeholder='Heading Text'
                     ref={node => headingText = node}
                     onChange={() => {
                         widget.text = headingText.value
                         updateWidget(widget)}
-                    }/>
+                    }/></div>
             </div>
             <div>
-                <h3>Heading Preview</h3>
                 {widget.size === 1 && <h1>{widget.text}</h1>}
                 {widget.size === 2 && <h2>{widget.text}</h2>}
                 {widget.size === 3 && <h3>{widget.text}</h3>}
