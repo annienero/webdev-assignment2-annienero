@@ -9,22 +9,21 @@ const Link = ({ updateWidget, showPreview, widget }) => {
     let text
     return (
         <div>
+            <div hidden={showPreview}>
             <label for="name">Link Text</label>
             <input id="name" className="form-control" placeholder="Link text"
                 value={widget.text}
                 ref={node => text = node}
                 onChange={() => {
                     widget.text = text.value
-                    updateWidget(widget)}}
-                hidden={showPreview} />
+                    updateWidget(widget)}}/>
             <label for="url">Link URL</label>
             <input id="url" className="form-control" placeholder="Link URL" 
                 value={widget.href}
                 ref={node => href = node}
                 onChange={() => {
                     widget.href = href.value
-                    updateWidget(widget)}}
-                hidden={showPreview} />
+                    updateWidget(widget)}}/></div>
             <a href={widget.href}>{widget.text}</a>
         </div>
     )

@@ -7,14 +7,14 @@ const Image = ({ updateWidget, showPreview, widget }) => {
     let url
     return(
     <div>
+        <div hidden={showPreview}>
         <label for="name">Image URL</label>
         <input id="name" className="form-control" placeholder="Image URL" 
             value={widget.src} ref={node => url = node}
             onChange={() => {
                 widget.src = url.value
                 updateWidget(widget)}
-            }
-            hidden={showPreview} />
+            }/></div>
         <div><img src={widget.src}/></div>
     </div>)
 }
