@@ -12,7 +12,7 @@ export default class WidgetServiceClient {
     }
 
     saveWidgets(lessonId, widgets) {
-        return fetch('https://cs4550-summer2-2018-annienero.herokuapp.com/api/esson/' + lessonId + '/widget/save', { 
+        return fetch('https://cs4550-summer2-2018-annienero.herokuapp.com/api/lesson/' + lessonId + '/widget/save', { 
             method: 'post',
             body: JSON.stringify(widgets),
             headers: {

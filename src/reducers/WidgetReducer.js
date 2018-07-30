@@ -33,9 +33,13 @@ export const WidgetReducer = (state = {widgets: [], showPreview: false}, action)
                 widgets: newWidgets
             }
         case FIND_ALL_WIDGETS:
-            return {
+            // return {
+            //     widgets: action.widgets
+            // }
+            newState = {
                 widgets: action.widgets
             }
+            return JSON.parse(JSON.stringify(newState))
         case MOVE_DOWN:
             index = state.widgets.indexOf(action.widget)
             state.widgets[index].widgetOrder++

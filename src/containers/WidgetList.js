@@ -8,8 +8,24 @@ import './WidgetListStyle.css'
 class WidgetList extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            lessonId: ''
+        }
         this.props.findAllWidgets(this.props.lessonId)
+        this.setLessonId = this.setLessonId.bind(this);
     }
+
+    setLessonId(lessonId) {
+        this.setState({ lessonId: lessonId })
+        this.props.findAllWidgets(lessonId)
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.lessonId != this.state.lessonId) {
+            this.setLessonId(newProps.lessonId)
+        }
+    }
+
     render() {
         let widgets = this.props.widgets.sort((widget1, widget2) => widget1.widgetOrder > widget2.widgetOrder)
         return (
