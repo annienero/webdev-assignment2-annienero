@@ -21,6 +21,7 @@ export default class ModuleList extends Component {
         this.moduleService = ModuleServiceClient.instance;
         this.renderModules = this.renderModules.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
+        this.setSelectedItem = this.setSelectedItem.bind(this);
         this.setModuleTitle = this.setModuleTitle.bind(this);
         this.deleteModule = this.deleteModule.bind(this);
         this.onAddUpdateClicked = this.onAddUpdateClicked.bind(this);
@@ -30,6 +31,7 @@ export default class ModuleList extends Component {
     }
 
     moduleClicked(id) {
+        this.setState({ selectedItem: id });
         this.setState({ selectedItem: id });
     }
 
@@ -45,7 +47,7 @@ export default class ModuleList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        this.setCourseId(newProps.courseId);
+        this.setCourseId(newProps.courseId)
         this.findAllModulesForCourse(newProps.courseId)
     }
 
@@ -73,8 +75,20 @@ export default class ModuleList extends Component {
         this.setState({ courseId: courseId });
     }
 
+    setSelectedItem(selectedItem) {
+        this.setState({ selectedItem: selectedItem });
+    }
+
     componentDidMount() {
-        this.setCourseId(this.props.courseId);
+        if (this.props.match) {
+            this.setCourseId(this.props.match.params.courseId);
+            this.findAllModulesForCourse(this.props.match.params.courseId);
+            this.setSelectedItem(this.props.match.params.moduleId);
+        } else  if (this.props.courseId) {
+            this.setCourseId(this.props.courseId);
+            this.findAllModulesForCourse(this.props.courseId);
+        }
+
     }
 
     onAddUpdateClicked() {
@@ -88,8 +102,9 @@ export default class ModuleList extends Component {
     }
 
     renderModules() {
+        let selectedItem = this.state.selectedItem
         let modules = this.state.modules.map((module) => {
-            var selected = this.state.selectedItem === module.id;
+            let selected = selectedItem == module.id;
             return <ModuleListItem key={module.id} module={module}
                 onClick={this.moduleClicked.bind(this, module.id)} isSelected={selected}
                 courseId={this.state.courseId} delete={this.deleteModule} edit={this.editModule} />

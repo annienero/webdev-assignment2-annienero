@@ -11,7 +11,7 @@ export default class ModuleEditor extends React.Component {
   }
 
   componentDidMount() {
-    this.setCourseId( this.props.match.params.courseId);
+    this.setCourseId(this.props.match.params.courseId);
     this.setModuleId(this.props.match.params.moduleId);
   }
 
